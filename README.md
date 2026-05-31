@@ -101,7 +101,7 @@ docs/PLAN.md         # Implementation plan
 | Your setup | Guide |
 |------------|--------|
 | **Already using httpd (Apache)** with PHP/Python — no database yet | **[docs/DEPLOY-APACHE-EXISTING-SERVER.md](docs/DEPLOY-APACHE-EXISTING-SERVER.md)** |
-| **New Lightsail instance** (Ubuntu + Nginx + managed MySQL) | **[docs/DEPLOY-LIGHTSAIL.md](docs/DEPLOY-LIGHTSAIL.md)** |
+| **New Lightsail instance** (Amazon Linux + httpd + managed MySQL) | **[docs/DEPLOY-LIGHTSAIL.md](docs/DEPLOY-LIGHTSAIL.md)** |
 
 ### Existing Apache server — quick steps
 
@@ -117,17 +117,19 @@ sudo apachectl configtest && sudo systemctl reload httpd
 sudo certbot --apache -d eatherahmed.com -d www.eatherahmed.com
 ```
 
-### New Lightsail instance — quick summary
+### New Lightsail instance — quick summary (Amazon Linux)
 
-1. Create a **Lightsail instance** (Ubuntu, 2 GB RAM) and **Lightsail MySQL** database
-2. Point **eatherahmed.com** A record to the instance IP
-3. SSH in and run `scripts/lightsail-setup.sh`
-4. Clone repo to `/var/www/eatherahmed`, copy `.env.production.example` → `.env`
-5. `npm ci && npm run db:deploy && npm run db:seed && npm run build:prod`
-6. Start with PM2: `pm2 start deploy/ecosystem.config.cjs`
-7. Configure Nginx + Certbot (see deploy guide)
+1. Create **Lightsail instance** — blueprint **Amazon Linux 2023**, 2 GB RAM
+2. Create **Lightsail MySQL** database (or install MariaDB locally — see Apache guide)
+3. Point **eatherahmed.com** A record to the instance IP
+4. SSH as **`ec2-user`**: `ssh -i key.pem ec2-user@<IP>`
+5. Run `bash scripts/lightsail-setup.sh`
+6. Clone repo to `/var/www/eatherahmed`, copy `.env.production.example` → `.env`
+7. `npm ci && npm run db:deploy && npm run db:seed && npm run build:prod`
+8. `pm2 start deploy/ecosystem.config.cjs`
+9. `sudo cp deploy/httpd/eatherahmed.conf /etc/httpd/conf.d/` + Certbot
 
-Future updates: `./scripts/lightsail-deploy.sh ubuntu@YOUR_IP ~/.ssh/key.pem`
+Future updates: `./scripts/lightsail-deploy.sh ec2-user@YOUR_IP ~/.ssh/key.pem`
 
 ## Deploy Notes
 

@@ -61,7 +61,7 @@ curl -I https://www.eatherahmed.com
 Apache works but **cannot reach Node on port 3000**. On the server:
 
 ```bash
-bash scripts/fix-503.sh
+bash scripts/diagnose-server.sh
 ```
 
 **Most common fix on Amazon Linux (SELinux):**
