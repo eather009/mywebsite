@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/data";
-import { getAllPublishedSlugs } from "@/lib/blog-db";
+import { getAllPublishedSlugs } from "@/lib/content";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const slugs = await getAllPublishedSlugs();

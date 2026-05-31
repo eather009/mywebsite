@@ -1,10 +1,14 @@
 import Link from "next/link";
 import { FileText, Plus, Settings } from "lucide-react";
+import { notFound } from "next/navigation";
 import { AdminShell } from "@/components/admin/AdminShell";
-import { getAllPostsAdmin } from "@/lib/blog-db";
-import { getSiteSettings } from "@/lib/site-settings-db";
+import { isStaticSite } from "@/lib/static-mode";
 
 export default async function AdminDashboardPage() {
+  if (isStaticSite()) notFound();
+
+  const { getAllPostsAdmin } = await import("@/lib/blog-db");
+  const { getSiteSettings } = await import("@/lib/site-settings-db");
   const [posts, settings] = await Promise.all([
     getAllPostsAdmin(),
     getSiteSettings(),

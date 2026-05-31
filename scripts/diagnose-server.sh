@@ -41,7 +41,10 @@ echo ""
 echo "--- 2. Environment (.env) ---"
 if [[ -f "$APP_DIR/.env" ]]; then
   ok ".env exists at app root"
+grep -q '^STATIC_SITE=1' "$APP_DIR/.env" 2>/dev/null && warn "STATIC_SITE=1 — no database required (MDX blog)" || true
+if [[ -f "$APP_DIR/.env" ]] && ! grep -q '^STATIC_SITE=1' "$APP_DIR/.env" 2>/dev/null; then
   grep -q '^DATABASE_URL=' "$APP_DIR/.env" && ok "DATABASE_URL is set" || fail "DATABASE_URL missing in .env"
+fi
   grep -q '^JWT_SECRET=' "$APP_DIR/.env" && ok "JWT_SECRET is set" || fail "JWT_SECRET missing in .env"
 else
   fail "no $APP_DIR/.env — copy from .env.production.example"

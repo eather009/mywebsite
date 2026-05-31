@@ -5,7 +5,7 @@ import { LinkedInIcon } from "@/components/icons";
 import { PageLayout } from "@/components/PageLayout";
 import { Badge } from "@/components/ui";
 import { BlogContent, BlogCover } from "@/components/BlogContent";
-import { getAllPublishedSlugs, getPostBySlug } from "@/lib/blog-db";
+import { getAllPublishedSlugs, getPostBySlug } from "@/lib/content";
 import { siteConfig } from "@/lib/data";
 import type { Metadata } from "next";
 

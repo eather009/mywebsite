@@ -1,9 +1,13 @@
 import Link from "next/link";
 import { Plus } from "lucide-react";
+import { notFound } from "next/navigation";
 import { AdminShell } from "@/components/admin/AdminShell";
-import { getAllPostsAdmin } from "@/lib/blog-db";
+import { isStaticSite } from "@/lib/static-mode";
 
 export default async function AdminPostsPage() {
+  if (isStaticSite()) notFound();
+
+  const { getAllPostsAdmin } = await import("@/lib/blog-db");
   const posts = await getAllPostsAdmin();
 
   return (

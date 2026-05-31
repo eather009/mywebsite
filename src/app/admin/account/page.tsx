@@ -1,8 +1,12 @@
+import { notFound } from "next/navigation";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { ChangePasswordForm } from "@/components/admin/ChangePasswordForm";
-import { getSession } from "@/lib/auth";
+import { isStaticSite } from "@/lib/static-mode";
 
 export default async function AdminAccountPage() {
+  if (isStaticSite()) notFound();
+
+  const { getSession } = await import("@/lib/auth");
   const session = await getSession();
 
   return (

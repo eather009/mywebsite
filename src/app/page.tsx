@@ -20,8 +20,7 @@ import {
   recommendations,
   skills,
 } from "@/lib/data";
-import { getPublishedPosts } from "@/lib/blog-db";
-import { getSiteSettings } from "@/lib/site-settings-db";
+import { getPublishedPosts, getSiteSettings } from "@/lib/content";
 
 export default async function HomePage() {
   const [recentPosts, settings] = await Promise.all([

@@ -1,8 +1,12 @@
+import { notFound } from "next/navigation";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { SettingsForm } from "@/components/admin/SettingsForm";
-import { getSiteSettings } from "@/lib/site-settings-db";
+import { isStaticSite } from "@/lib/static-mode";
 
 export default async function AdminSettingsPage() {
+  if (isStaticSite()) notFound();
+
+  const { getSiteSettings } = await import("@/lib/site-settings-db");
   const settings = await getSiteSettings();
 
   return (

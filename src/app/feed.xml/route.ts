@@ -1,4 +1,4 @@
-import { getPublishedPosts } from "@/lib/blog-db";
+import { getPublishedPosts } from "@/lib/content";
 import { siteConfig } from "@/lib/data";
 
 export async function GET() {

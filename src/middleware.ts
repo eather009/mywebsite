@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
+import { isStaticSite } from "@/lib/static-mode";
 
 const COOKIE_NAME = "admin_session";
 
@@ -26,6 +27,16 @@ async function isAuthenticated(request: NextRequest) {
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  if (isStaticSite()) {
+    if (pathname.startsWith("/admin") || pathname.startsWith("/api/admin")) {
+      if (pathname.startsWith("/api/admin")) {
+        return NextResponse.json({ error: "Not available" }, { status: 404 });
+      }
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+    return NextResponse.next();
+  }
 
   if (pathname.startsWith("/admin/login")) {
     if (await isAuthenticated(request)) {

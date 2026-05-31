@@ -4,7 +4,7 @@ import { PageLayout } from "@/components/PageLayout";
 import { PageHero, Section, Card, ButtonPrimary } from "@/components/ui";
 import { AvailabilityBadge, AvailabilityMessage } from "@/components/AvailabilityBadge";
 import { siteConfig, recommendations } from "@/lib/data";
-import { getSiteSettings } from "@/lib/site-settings-db";
+import { getSiteSettings } from "@/lib/content";
 
 export default async function ContactPage() {
   const settings = await getSiteSettings();

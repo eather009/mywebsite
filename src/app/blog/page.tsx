@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Clock, ArrowRight } from "lucide-react";
 import { PageLayout } from "@/components/PageLayout";
 import { PageHero, Card, Badge } from "@/components/ui";
-import { getPublishedPosts } from "@/lib/blog-db";
+import { getPublishedPosts } from "@/lib/content";
 
 export default async function BlogPage() {
   const posts = await getPublishedPosts();
