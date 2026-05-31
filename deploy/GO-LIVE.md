@@ -7,12 +7,8 @@ DNS A records point to your Lightsail IP. Run these on the **server** as `ec2-us
 ```bash
 cd /var/www/eatherahmed
 git pull
-npm ci
-npm run db:deploy
-npm run build:prod
-cp -r public .next/standalone/public
-cp -r .next/static .next/standalone/.next/static
-pm2 restart eatherahmed || pm2 start deploy/ecosystem.config.cjs
+bash scripts/deploy-1gb.sh    # 1 GB instance — stops PM2, low-mem build, restarts
+# Or on 2 GB+: npm ci && npm run db:deploy && npm run deploy:prod && pm2 restart eatherahmed
 pm2 save
 curl -I http://127.0.0.1:3000
 ```

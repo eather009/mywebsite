@@ -100,8 +100,27 @@ docs/PLAN.md         # Implementation plan
 
 | Your setup | Guide |
 |------------|--------|
-| **Already using httpd (Apache)** with PHP/Python — no database yet | **[docs/DEPLOY-APACHE-EXISTING-SERVER.md](docs/DEPLOY-APACHE-EXISTING-SERVER.md)** |
-| **New Lightsail instance** (Amazon Linux + httpd + managed MySQL) | **[docs/DEPLOY-LIGHTSAIL.md](docs/DEPLOY-LIGHTSAIL.md)** |
+| **1 GB RAM Lightsail** + MariaDB + CMS | **[deploy/DEPLOY-1GB.md](deploy/DEPLOY-1GB.md)** |
+| **Already using httpd (Apache)** with PHP/Python | **[docs/DEPLOY-APACHE-EXISTING-SERVER.md](docs/DEPLOY-APACHE-EXISTING-SERVER.md)** |
+| **New Lightsail instance** (Amazon Linux + httpd) | **[docs/DEPLOY-LIGHTSAIL.md](docs/DEPLOY-LIGHTSAIL.md)** |
+
+### 1 GB Lightsail — quick steps (MariaDB + CMS)
+
+```bash
+# On server (ec2-user) — 1 GB RAM, 2 vCPU, 40 GB SSD
+cd /var/www/eatherahmed
+git clone git@github.com:eather009/mywebsite.git .
+bash scripts/setup-1gb-server.sh
+nano deploy/mariadb/init-portfolio.sql   # set DB password
+sudo mysql -u root -p < deploy/mariadb/init-portfolio.sql
+cp .env.production.example .env && nano .env
+npm run db:deploy && npm run db:seed
+bash scripts/deploy-1gb.sh
+sudo cp deploy/httpd/eatherahmed.conf /etc/httpd/conf.d/
+sudo certbot --apache -d eatherahmed.com -d www.eatherahmed.com
+```
+
+Future updates: `bash scripts/deploy-1gb.sh`
 
 ### Existing Apache server — quick steps
 
@@ -119,8 +138,8 @@ sudo certbot --apache -d eatherahmed.com -d www.eatherahmed.com
 
 ### New Lightsail instance — quick summary (Amazon Linux)
 
-1. Create **Lightsail instance** — blueprint **Amazon Linux 2023**, 2 GB RAM
-2. Create **Lightsail MySQL** database (or install MariaDB locally — see Apache guide)
+1. Create **Lightsail instance** — blueprint **Amazon Linux 2023** (**1 GB RAM** is OK — see `deploy/DEPLOY-1GB.md`)
+2. Install **MariaDB locally** on the instance (recommended for 1 GB) or use Lightsail managed MySQL
 3. Point **eatherahmed.com** A record to the instance IP
 4. SSH as **`ec2-user`**: `ssh -i key.pem ec2-user@<IP>`
 5. Run `bash scripts/lightsail-setup.sh`

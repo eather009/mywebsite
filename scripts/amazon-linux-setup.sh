@@ -39,12 +39,21 @@ if ! swapon --show 2>/dev/null | grep -q /swapfile; then
   grep -q '/swapfile' /etc/fstab || echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 fi
 
+echo "==> Applying MariaDB low-memory config (1 GB instances)..."
+LOWMEM_CNF=""
+if [[ -f /var/www/eatherahmed/deploy/mariadb/99-portfolio-lowmem.cnf ]]; then
+  LOWMEM_CNF="/var/www/eatherahmed/deploy/mariadb/99-portfolio-lowmem.cnf"
+elif [[ -f deploy/mariadb/99-portfolio-lowmem.cnf ]]; then
+  LOWMEM_CNF="deploy/mariadb/99-portfolio-lowmem.cnf"
+fi
+if [[ -n "$LOWMEM_CNF" ]]; then
+  sudo cp "$LOWMEM_CNF" /etc/my.cnf.d/99-portfolio-lowmem.cnf
+  sudo systemctl restart mariadb
+fi
+
 echo ""
 echo "MariaDB is running. Create the database:"
-echo "  sudo mysql -u root -p"
-echo "  CREATE DATABASE portfolio;"
-echo "  CREATE USER 'portfolio'@'localhost' IDENTIFIED BY 'your-password';"
-echo "  GRANT ALL ON portfolio.* TO 'portfolio'@'localhost';"
-echo "  FLUSH PRIVILEGES;"
+echo "  nano deploy/mariadb/init-portfolio.sql   # set password"
+echo "  sudo mysql -u root -p < deploy/mariadb/init-portfolio.sql"
 echo ""
-echo "Then deploy the app — see docs/DEPLOY-APACHE-EXISTING-SERVER.md"
+echo "For 1 GB Lightsail: bash scripts/setup-1gb-server.sh && deploy/DEPLOY-1GB.md"

@@ -59,6 +59,7 @@ AGENTS.md
 # Override global gitignore — keep lockfile and static assets
 !package-lock.json
 !prisma/migrations/**/*.sql
+!deploy/mariadb/*.sql
 !/public/
 !/public/**
 /public/uploads

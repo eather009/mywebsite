@@ -1,0 +1,28 @@
+# MariaDB tuning for 1 GB RAM Lightsail (portfolio CMS only)
+# Install: sudo cp deploy/mariadb/99-portfolio-lowmem.cnf /etc/my.cnf.d/
+#          sudo systemctl restart mariadb
+
+[mysqld]
+# ~128 MB for InnoDB — leaves room for Node, Apache, and OS on 1 GB instance
+innodb_buffer_pool_size = 128M
+innodb_log_file_size = 32M
+innodb_flush_log_at_trx_commit = 2
+innodb_flush_method = O_DIRECT
+
+max_connections = 20
+key_buffer_size = 8M
+table_open_cache = 64
+thread_cache_size = 4
+tmp_table_size = 16M
+max_heap_table_size = 16M
+
+# Reduce overhead on small instances
+performance_schema = OFF
+query_cache_type = 0
+
+# Bind locally only
+bind-address = 127.0.0.1
+
+[mariadb]
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci

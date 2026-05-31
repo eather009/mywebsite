@@ -29,8 +29,15 @@ npm ci
 echo "==> Running migrations..."
 npm run db:deploy
 
-echo "==> Building app..."
-npm run build:prod
+echo "==> Building app (low-memory)..."
+export NODE_OPTIONS="${NODE_OPTIONS:---max-old-space-size=512}"
+pm2 stop eatherahmed 2>/dev/null || true
+
+if [[ -f .env ]] && grep -q '^STATIC_SITE=1' .env; then
+  npm run deploy:static:lowmem
+else
+  npm run deploy:prod:lowmem
+fi
 
 echo "==> Syncing standalone assets..."
 npm run sync:standalone
