@@ -1,16 +1,15 @@
-# eatherahmed.com — HTTPS (after certbot, or copy manually)
-# Certbot usually creates eatherahmed-le-ssl.conf automatically.
-# If editing by hand, ensure both domains and X-Forwarded-Proto are set.
+# HTTPS vhost — reference after certbot
+# Certbot creates /etc/httpd/conf.d/eatherahmed-le-ssl.conf
+# If https:// shows 503 but http:// works, your SSL vhost is missing the proxy block below.
 
 <VirtualHost *:443>
     ServerName eatherahmed.com
     ServerAlias www.eatherahmed.com
 
     SSLEngine on
-    # Certbot fills these paths:
-    # SSLCertificateFile /etc/letsencrypt/live/eatherahmed.com/fullchain.pem
-    # SSLCertificateKeyFile /etc/letsencrypt/live/eatherahmed.com/privkey.pem
-    # Include /etc/letsencrypt/options-ssl-apache.conf
+    SSLCertificateFile /etc/letsencrypt/live/eatherahmed.com/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/eatherahmed.com/privkey.pem
+    Include /etc/letsencrypt/options-ssl-apache.conf
 
     Alias /uploads /var/www/eatherahmed/public/uploads
     <Directory /var/www/eatherahmed/public/uploads>
@@ -20,7 +19,6 @@
 
     ProxyPreserveHost On
     ProxyRequests Off
-
     ProxyPass /uploads !
     ProxyPass / http://127.0.0.1:3000/
     ProxyPassReverse / http://127.0.0.1:3000/
@@ -31,8 +29,3 @@
     ErrorLog /var/log/httpd/eatherahmed-ssl-error.log
     CustomLog /var/log/httpd/eatherahmed-ssl-access.log combined
 </VirtualHost>
-
-# Redirect HTTP → HTTPS (certbot may add this to the :80 vhost)
-# RewriteEngine On
-# RewriteCond %{HTTPS} off
-# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]

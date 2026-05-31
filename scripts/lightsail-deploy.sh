@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Deploy latest code to a Lightsail instance
+# Deploy latest code to a Lightsail instance (Amazon Linux)
 # Usage: ./scripts/lightsail-deploy.sh [user@host] [ssh-key-path]
-# Example: ./scripts/lightsail-deploy.sh ubuntu@3.112.0.0 ~/.ssh/LightsailDefaultKey.pem
+# Example: ./scripts/lightsail-deploy.sh ec2-user@3.112.0.0 ~/.ssh/LightsailDefaultKey.pem
 
 set -euo pipefail
 
-TARGET="${1:-ubuntu@YOUR_INSTANCE_IP}"
+TARGET="${1:-ec2-user@YOUR_INSTANCE_IP}"
 SSH_KEY="${2:-}"
 APP_DIR="/var/www/eatherahmed"
 
@@ -33,12 +33,12 @@ echo "==> Building app..."
 npm run build:prod
 
 echo "==> Syncing standalone assets..."
-cp -r public .next/standalone/public
-cp -r .next/static .next/standalone/.next/static
-mkdir -p .next/standalone/public/uploads public/uploads
+npm run sync:standalone
+mkdir -p logs
 
 echo "==> Restarting PM2..."
-pm2 restart eatherahmed || pm2 start deploy/ecosystem.config.cjs
+pm2 delete eatherahmed 2>/dev/null || true
+pm2 start deploy/ecosystem.config.cjs
 pm2 save
 
 echo "==> Deploy complete."

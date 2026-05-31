@@ -4,21 +4,23 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && prisma migrate deploy && tsx prisma/seed.ts && next build",
-    "build:prod": "prisma generate && next build",
+    "build": "npx prisma generate && npx prisma migrate deploy && npx tsx prisma/seed.ts && next build",
+    "build:prod": "npx prisma generate && next build",
+    "sync:standalone": "cp -r public .next/standalone/public && cp -r .next/static .next/standalone/.next/static && cp .env .next/standalone/.env && mkdir -p public/uploads .next/standalone/public/uploads",
+    "deploy:prod": "npm run build:prod && npm run sync:standalone",
     "start": "next start",
     "start:prod": "node .next/standalone/server.js",
     "lint": "eslint",
-    "db:migrate": "prisma migrate dev",
-    "db:deploy": "prisma migrate deploy",
-    "db:seed": "tsx prisma/seed.ts",
-    "db:studio": "prisma studio",
+    "db:migrate": "npx prisma migrate dev",
+    "db:deploy": "npx prisma migrate deploy",
+    "db:seed": "npx tsx prisma/seed.ts",
+    "db:studio": "npx prisma studio",
     "db:up": "docker compose up -d mysql",
-    "db:setup": "docker compose up -d mysql && prisma migrate deploy && tsx prisma/seed.ts",
-    "postinstall": "prisma generate"
+    "db:setup": "docker compose up -d mysql && npx prisma migrate deploy && npx tsx prisma/seed.ts",
+    "postinstall": "npx prisma generate"
   },
   "prisma": {
-    "seed": "tsx prisma/seed.ts"
+    "seed": "npx tsx prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "5.22.0",
@@ -42,10 +44,12 @@
     "lucide-react": "^1.17.0",
     "next": "16.2.6",
     "next-mdx-remote": "^6.0.0",
+    "prisma": "5.22.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "reading-time": "^1.5.0",
-    "slugify": "^1.6.9"
+    "slugify": "^1.6.9",
+    "tsx": "^4.22.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -55,9 +59,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
-    "prisma": "5.22.0",
     "tailwindcss": "^4",
-    "tsx": "^4.22.3",
     "typescript": "^5"
   }
 }
