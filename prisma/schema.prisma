@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime @default(now())
+}
+
+model SiteSettings {
+  id                  Int      @id @default(1)
+  availabilityStatus  String   @default("open")
+  availabilityLabel   String   @default("Open to opportunities")
+  availabilityMessage String?  @db.Text
+  updatedAt           DateTime @updatedAt
+}
+
+model BlogPost {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  description String    @db.Text
+  content     String    @db.Text
+  coverImage  String?
+  tags        String    @default("[]") @db.VarChar(1000)
+  status      String    @default("draft")
+  author      String
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}

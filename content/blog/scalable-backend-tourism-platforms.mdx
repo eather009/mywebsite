@@ -1,0 +1,48 @@
+---
+title: "Building Scalable Backend Systems for High-Traffic Tourism Platforms"
+description: "Lessons from architecting Kyoto.travel on AWS and Alibaba Cloud — handling international traffic, multilingual content, and secure API design."
+date: "2025-09-20"
+tags: ["Backend", "AWS", "Architecture"]
+author: "Iftekhar Ahmed Eather"
+---
+
+Tourism platforms face unique engineering challenges: seasonal traffic spikes, multilingual content delivery, and the need for 99.9% uptime when visitors are planning trips. Here's what I've learned leading backend development for Kyoto.travel.
+
+## Architecture Principles
+
+### Environment Separation
+
+We maintain distinct development, staging, and production environments across AWS and Alibaba Cloud (Aliyun). This isn't just best practice — it's essential when content teams need to preview changes before they go live to international audiences.
+
+### API-First Design
+
+Every feature starts with an API contract. Frontend teams, content management systems, and third-party integrations all consume the same endpoints. This reduced integration bugs significantly.
+
+### Caching Strategy
+
+Tourism content is read-heavy. We implemented:
+
+- **CDN caching** for static assets and media
+- **Application-level caching** for frequently accessed content blocks
+- **Database query optimization** for search and filtering
+
+## Security Considerations
+
+High-profile tourism sites are targets. Our approach:
+
+- HTTPS everywhere with proper certificate management
+- Input validation on all API endpoints
+- Rate limiting on public-facing endpoints
+- Regular security reviews before major releases
+
+## Cloud Infrastructure
+
+Running on both AWS and Aliyun taught me that cloud-agnostic design patterns matter. We abstracted storage and compute configurations so deployments could adapt to each provider's strengths.
+
+## Advice for Backend Engineers
+
+1. **Design for read patterns first** — tourism sites are browsed, not transacted
+2. **Invest in monitoring early** — know your traffic patterns before peak season
+3. **Document API contracts** — your future self and your team will thank you
+
+Building platforms that serve real travelers planning real trips is deeply satisfying engineering work.
