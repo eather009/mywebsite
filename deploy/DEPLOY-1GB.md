@@ -118,6 +118,13 @@ cd /var/www/eatherahmed
 bash scripts/deploy-1gb.sh
 ```
 
+If `npm ci` is **Killed** (OOM on 1 GB):
+
+1. Confirm swap exists: `swapon --show` (need 2 GB — run `bash scripts/setup-1gb-server.sh`)
+2. Re-run deploy — script now stops MariaDB + PM2 before `npm ci`
+3. Skip reinstall when lockfile unchanged: `SKIP_NPM_CI=1 bash scripts/deploy-1gb.sh`
+4. Last resort — build on laptop and rsync (see below)
+
 ---
 
 ## If build still runs out of memory
