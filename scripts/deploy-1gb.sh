@@ -86,11 +86,6 @@ if [[ "$STATIC" -eq 0 ]]; then
   npm run db:deploy
 fi
 
-echo "==> Stop MariaDB again for build..."
-if [[ "$STATIC" -eq 0 ]]; then
-  sudo systemctl stop mariadb 2>/dev/null || true
-fi
-
 echo "==> Build..."
 if [[ "$STATIC" -eq 1 ]]; then
   npm run deploy:static:lowmem
