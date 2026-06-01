@@ -17,6 +17,7 @@ import {
   certifications,
   experience,
   projects,
+  featuredProjects,
   recommendations,
   skills,
 } from "@/lib/data";
@@ -163,9 +164,9 @@ export default async function HomePage() {
         </Link>
       </Section>
 
-      <Section label="03 — Work" title="Featured Work" subtitle="Enterprise platforms and leadership-led delivery from my LinkedIn portfolio.">
+      <Section label="03 — Work" title="Featured Work" subtitle="Recent SaaS and AI products plus enterprise platforms I've led and built.">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.slice(0, 3).map((project) => (
+          {featuredProjects.map((project) => (
             <Card key={project.name}>
               <h3 className="text-lg font-semibold text-[var(--port-fg)]">
                 <a

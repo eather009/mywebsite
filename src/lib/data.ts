@@ -1,17 +1,17 @@
 export const siteConfig = {
   name: "Iftekhar Ahmed Eather",
   shortName: "Eather Ahmed",
-  title: "Team Lead & System Engineer",
+  title: "Senior System Engineer · SRE & Cloud · Technical Lead",
   domain: "https://eatherahmed.com",
   email: "eather.ahmed@gmail.com",
-  location: "Konosu, Saitama, Japan",
+  location: "Saitama, Japan",
   linkedin: "https://www.linkedin.com/in/iftekhareather/",
   github: "https://github.com/eather009",
   twitter: "https://twitter.com/IftekharEather",
   tagline:
     "14+ years delivering scalable web platforms, leading engineering teams, and driving agile delivery for enterprise and tourism clients.",
   summary:
-    "Team Lead Manager and System Engineer with 14+ years of experience building high-traffic web applications, leading cross-functional teams, and delivering large-scale digital platforms. Certified Scrum Product Owner and Scrum Master with deep expertise in PHP, Laravel, Node.js, and cloud infrastructure on AWS and Alibaba Cloud.",
+    "Senior System Engineer and Technical Lead with 14+ years building high-traffic platforms, practicing SRE on AWS and Alibaba Cloud, and shipping full-stack SaaS products with Laravel, Python, and Node.js — including RAG-based AI chatbots, community management hubs, and real-time multiplayer apps.",
 };
 
 export const stats = [
@@ -50,26 +50,42 @@ export const certifications = [
 
 export const skills = [
   {
-    category: "Leadership & Process",
+    category: "Technical Leadership",
     items: [
+      "Technical Lead",
       "Team Leadership",
       "Agile / Scrum",
       "Project Management",
       "Stakeholder Management",
-      "Code Review & Mentorship",
     ],
   },
   {
-    category: "Backend & APIs",
-    items: ["PHP", "Laravel", "Node.js", "REST APIs", "CakePHP", "MySQL"],
+    category: "SRE & Cloud",
+    items: [
+      "Site Reliability Engineering",
+      "Systems Engineering",
+      "AWS",
+      "Alibaba Cloud",
+      "Linux",
+      "CI/CD",
+      "System Architecture",
+    ],
   },
   {
-    category: "Cloud & Infrastructure",
-    items: ["AWS", "Alibaba Cloud (Aliyun)", "System Architecture", "CI/CD", "Linux"],
+    category: "Full-Stack Development",
+    items: ["Laravel", "Python", "FastAPI", "Node.js", "PHP", "Vue.js", "WordPress", "MySQL"],
   },
   {
-    category: "Frontend",
-    items: ["JavaScript", "jQuery", "Responsive Web", "HTML/CSS"],
+    category: "AI & SaaS",
+    items: [
+      "RAG Architecture",
+      "Vector Databases",
+      "Agentic AI",
+      "SaaS / Multi-tenant",
+      "Docker",
+      "WebSockets",
+      "OCR Workflows",
+    ],
   },
 ];
 
@@ -82,6 +98,7 @@ export const experience = [
     url: "https://www.linkedin.com/company/export-japan-inc-/",
     highlights: [
       "Lead project scoping, budget estimation, and delivery for large-scale tourism digital platforms including Kyoto.travel.",
+      "Built EXJ AI Chatbot — a RAG-powered SaaS with vector search, FastAPI backend, and Docker deployment for 24/7 customer Q&A.",
       "Manage system engineers and developers; conduct code reviews, sprint planning, and agile ceremonies.",
       "Design secure, scalable architectures across AWS and Alibaba Cloud environments.",
       "Drive backend API development and system integration for high-traffic international web applications.",
@@ -123,6 +140,27 @@ export const experience = [
 
 export const projects = [
   {
+    name: "EXJ AI Chatbot",
+    description:
+      "AI-powered customer support SaaS for Export Japan Inc. Indexes website content into a vector database and answers visitor questions with RAG — multi-language Q&A, embeddable widget, usage analytics, and secure origin validation. Built with FastAPI and Docker.",
+    tags: ["RAG", "Vector DB", "FastAPI", "Docker", "Python", "SaaS", "AI"],
+    url: "https://chatbot.export-japan.com/",
+  },
+  {
+    name: "DonateSync Community Hub",
+    description:
+      "Multi-tenant SaaS for nonprofits, clubs, and member organizations — memberships, donations and dues, event RSVPs, OCR receipt workflows, email and in-app notifications, and an optional member portal with financial transparency.",
+    tags: ["SaaS", "Multi-tenant", "OCR", "Member Portal", "Community Platform"],
+    url: "https://donatesync.com/",
+  },
+  {
+    name: "BINGO",
+    description:
+      "Real-time multiplayer bingo for parties and events. Hosts share a QR code or link; up to 200 players join from any browser with live WebSocket sync, auto winner detection, and host controls — no app download required.",
+    tags: ["WebSockets", "Real-time", "Node.js", "SaaS", "Multiplayer"],
+    url: "https://bingo.eatherahmed.com/",
+  },
+  {
     name: "Kyoto.travel",
     description:
       "Major tourism information platform serving international visitors. Led system restructuring, backend architecture, and agile delivery for high-traffic multilingual content.",
@@ -158,6 +196,17 @@ export const projects = [
     url: "https://www.linkedin.com/in/iftekhareather/",
   },
 ];
+
+export const featuredProjectNames = [
+  "DonateSync Community Hub",
+  "Tourism & Travel Platforms",
+  "Government Digital Platforms",
+  "E-Learning & HR Systems",
+];
+
+export const featuredProjects = featuredProjectNames
+  .map((name) => projects.find((project) => project.name === name))
+  .filter((project): project is (typeof projects)[number] => project !== undefined);
 
 export const recommendations = [
   {

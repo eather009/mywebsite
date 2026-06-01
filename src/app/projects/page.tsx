@@ -10,11 +10,11 @@ export default function ProjectsPage() {
     <PageLayout>
       <PageHero
         title="Projects"
-        subtitle="Professional platforms and systems I've led — curated from my LinkedIn portfolio."
+        subtitle="SaaS products, AI platforms, and enterprise systems I've designed and built."
         label="projects.tsx"
       />
 
-      <Section title="Portfolio Highlights" subtitle="Enterprise, government, and tourism platforms delivered across my career." label="export const portfolio">
+      <Section title="Portfolio Highlights" subtitle="Recent SaaS products plus enterprise, government, and tourism platforms." label="export const portfolio">
         <div className="grid gap-6 md:grid-cols-2">
           {projects.map((project) => (
             <Card key={project.name}>

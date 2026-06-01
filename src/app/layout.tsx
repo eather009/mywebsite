@@ -78,7 +78,7 @@ export default function RootLayout({
     },
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Konosu",
+      addressLocality: "Saitama",
       addressRegion: "Saitama",
       addressCountry: "JP",
     },
