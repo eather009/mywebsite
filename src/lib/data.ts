@@ -3,7 +3,7 @@ export const siteConfig = {
   shortName: "Eather Ahmed",
   title: "Team Lead & System Engineer",
   domain: "https://eatherahmed.com",
-  email: "contact@eatherahmed.com",
+  email: "eather.ahmed@gmail.com",
   location: "Konosu, Saitama, Japan",
   linkedin: "https://www.linkedin.com/in/iftekhareather/",
   github: "https://github.com/eather009",
