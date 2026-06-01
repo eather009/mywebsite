@@ -1,3 +1,4 @@
+import { unstable_noStore as noStore } from "next/cache";
 import { prisma } from "./prisma";
 import {
   AVAILABILITY_PRESETS,
@@ -6,6 +7,7 @@ import {
 } from "./site-settings";
 
 export async function getSiteSettings(): Promise<SiteSettingsData> {
+  noStore();
   let settings = await prisma.siteSettings.findUnique({ where: { id: 1 } });
 
   if (!settings) {

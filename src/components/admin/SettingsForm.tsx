@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, Save } from "lucide-react";
 import {
@@ -16,6 +16,13 @@ export function SettingsForm({ initial }: { initial: SiteSettingsData }) {
   const [message, setMessage] = useState(initial.availabilityMessage ?? "");
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setStatus(initial.availabilityStatus);
+    setLabel(initial.availabilityLabel);
+    setMessage(initial.availabilityMessage ?? "");
+  }, [initial]);
 
   function applyPreset(next: AvailabilityStatus) {
     setStatus(next);
@@ -27,20 +34,31 @@ export function SettingsForm({ initial }: { initial: SiteSettingsData }) {
     e.preventDefault();
     setSaving(true);
     setSaved(false);
+    setError(null);
 
-    await fetch("/api/admin/settings", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        availabilityStatus: status,
-        availabilityLabel: label,
-        availabilityMessage: message,
-      }),
-    });
+    try {
+      const response = await fetch("/api/admin/settings", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          availabilityStatus: status,
+          availabilityLabel: label,
+          availabilityMessage: message,
+        }),
+      });
 
-    setSaving(false);
-    setSaved(true);
-    router.refresh();
+      if (!response.ok) {
+        const data = (await response.json().catch(() => null)) as { error?: string } | null;
+        throw new Error(data?.error ?? `Save failed (${response.status})`);
+      }
+
+      setSaved(true);
+      router.refresh();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to save settings");
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (
@@ -99,7 +117,7 @@ export function SettingsForm({ initial }: { initial: SiteSettingsData }) {
         </div>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         <button
           type="submit"
           disabled={saving}
@@ -109,6 +127,7 @@ export function SettingsForm({ initial }: { initial: SiteSettingsData }) {
           Save Settings
         </button>
         {saved && <span className="text-sm text-green-600">Saved successfully</span>}
+        {error && <span className="text-sm text-red-600">{error}</span>}
       </div>
     </form>
   );

@@ -31,7 +31,9 @@ export default async function AdminDashboardPage() {
         <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
           <p className="text-sm text-slate-500">Availability</p>
           <p className="mt-1 text-lg font-semibold text-slate-900">
-            {settings.availabilityLabel}
+            {settings.availabilityStatus === "hidden"
+              ? "Hidden (not shown on site)"
+              : settings.availabilityLabel}
           </p>
         </div>
       </div>

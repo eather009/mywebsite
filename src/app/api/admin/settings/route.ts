@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import { getSiteSettings, updateSiteSettings } from "@/lib/site-settings-db";
 import { AVAILABILITY_PRESETS, parseAvailabilityStatus } from "@/lib/site-settings";
@@ -19,6 +20,11 @@ export async function PUT(request: Request) {
       availabilityMessage:
         body.availabilityMessage?.trim() || preset.description || null,
     });
+
+    revalidatePath("/");
+    revalidatePath("/contact");
+    revalidatePath("/admin");
+    revalidatePath("/admin/settings");
 
     return NextResponse.json({
       availabilityStatus: settings.availabilityStatus,

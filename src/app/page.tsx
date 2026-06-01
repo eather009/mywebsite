@@ -22,6 +22,8 @@ import {
 } from "@/lib/data";
 import { getPublishedPosts, getSiteSettings } from "@/lib/content";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const [recentPosts, settings] = await Promise.all([
     getPublishedPosts(),
