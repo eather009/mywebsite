@@ -9,15 +9,11 @@ export function Header() {
       <div className="ide-titlebar">
         <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-2.5">
           <div className="ide-traffic-lights" aria-hidden="true">
-            <span className="close" />
-            <span className="minimize" />
-            <span className="maximize" />
+            
           </div>
           <Link href="/" className="group flex min-w-0 flex-1 items-center gap-2">
             <span className="truncate text-xs text-[var(--ide-muted)]">
-              <span className="syntax-string">eatherahmed.com</span>
-              <span className="syntax-punct"> — </span>
-              <span className="syntax-comment">portfolio</span>
+              
             </span>
           </Link>
           <MobileNav />

@@ -59,15 +59,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="ide-statusbar flex flex-wrap items-center justify-between">
-        <div className="flex flex-wrap">
-          <span className="ide-statusbar-item">
-            <span className="opacity-80">⎇</span> main
-          </span>
-          <span className="ide-statusbar-item">UTF-8</span>
-          <span className="ide-statusbar-item">TypeScript</span>
-          <span className="ide-statusbar-item hidden sm:inline-flex">Prettier</span>
-        </div>
+      <div className="ide-statusbar flex flex-wrap items-center justify-center">
         <div className="flex flex-wrap">
           <span className="ide-statusbar-item hidden sm:inline-flex">{siteConfig.location}</span>
           <a

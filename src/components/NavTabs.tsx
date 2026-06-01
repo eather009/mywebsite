@@ -33,7 +33,7 @@ export function NavTabs() {
           className="ide-tab ml-auto border-l-0 !border-r-0 text-[var(--ide-type)] hover:text-[var(--ide-type)]"
         >
           <span className="ide-tab-icon">→</span>
-          hire_me()
+          connect_with_me()
         </Link>
       </div>
     </div>

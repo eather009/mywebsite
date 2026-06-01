@@ -1,8 +1,8 @@
 export const siteConfig = {
   name: "Iftekhar Ahmed Eather",
-  shortName: "Eather Ahmed",
+  shortName: "Iftekhar Eather",
   title: "Senior System Engineer · SRE & Cloud · Technical Lead",
-  domain: "https://eatherahmed.com",
+  domain: "https://www.eatherahmed.com",
   email: "eather.ahmed@gmail.com",
   location: "Saitama, Japan",
   linkedin: "https://www.linkedin.com/in/iftekhareather/",
