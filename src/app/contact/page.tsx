@@ -3,13 +3,14 @@ import { LinkedInIcon } from "@/components/icons";
 import { PageLayout } from "@/components/PageLayout";
 import { PageHero, Section, Card, ButtonPrimary } from "@/components/ui";
 import { AvailabilityBadge, AvailabilityMessage } from "@/components/AvailabilityBadge";
-import { siteConfig, recommendations } from "@/lib/data";
+import { recommendations } from "@/lib/data";
 import { getSiteSettings } from "@/lib/content";
+import { getSiteConfig } from "@/lib/site-config";
 
 export const dynamic = "force-dynamic";
 
 export default async function ContactPage() {
-  const settings = await getSiteSettings();
+  const [settings, siteConfig] = await Promise.all([getSiteSettings(), getSiteConfig()]);
 
   return (
     <PageLayout>

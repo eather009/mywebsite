@@ -1,0 +1,9 @@
+-- AlterTable
+ALTER TABLE `SiteSettings`
+  ADD COLUMN `siteName` VARCHAR(191) NULL,
+  ADD COLUMN `shortName` VARCHAR(191) NULL,
+  ADD COLUMN `title` VARCHAR(191) NULL,
+  ADD COLUMN `tagline` TEXT NULL,
+  ADD COLUMN `summary` TEXT NULL,
+  ADD COLUMN `location` VARCHAR(191) NULL,
+  ADD COLUMN `email` VARCHAR(191) NULL;

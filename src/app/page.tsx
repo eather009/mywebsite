@@ -12,7 +12,6 @@ import { PageLayout } from "@/components/PageLayout";
 import { Section, Card, Badge, ButtonPrimary, ButtonSecondary } from "@/components/ui";
 import { AvailabilityBadge, AvailabilityMessage } from "@/components/AvailabilityBadge";
 import {
-  siteConfig,
   stats,
   certifications,
   experience,
@@ -22,13 +21,15 @@ import {
   skills,
 } from "@/lib/data";
 import { getPublishedPosts, getSiteSettings } from "@/lib/content";
+import { getSiteConfig } from "@/lib/site-config";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const [recentPosts, settings] = await Promise.all([
+  const [recentPosts, settings, siteConfig] = await Promise.all([
     getPublishedPosts(),
     getSiteSettings(),
+    getSiteConfig(),
   ]);
 
   const posts = recentPosts.slice(0, 3);

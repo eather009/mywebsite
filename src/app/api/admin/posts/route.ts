@@ -5,6 +5,7 @@ import {
 } from "@/lib/blog-db";
 import { isValidTipTapContent } from "@/lib/tiptap";
 import { getSession } from "@/lib/auth";
+import { revalidateBlogPaths } from "@/lib/revalidate-blog";
 
 export async function GET() {
   const posts = await getAllPostsAdmin();
@@ -35,6 +36,10 @@ export async function POST(request: Request) {
       status: body.status === "published" ? "published" : "draft",
       author: session?.name ?? "Iftekhar Ahmed Eather",
     });
+
+    if (post.status === "published") {
+      revalidateBlogPaths(post.slug);
+    }
 
     return NextResponse.json(post, { status: 201 });
   } catch {

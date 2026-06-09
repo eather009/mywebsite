@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getPostById, updateBlogPost, deleteBlogPost } from "@/lib/blog-db";
 import { isValidTipTapContent } from "@/lib/tiptap";
+import { revalidateBlogPaths } from "@/lib/revalidate-blog";
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -23,6 +24,8 @@ export async function PUT(request: Request, { params }: Params) {
       return NextResponse.json({ error: "Invalid content" }, { status: 400 });
     }
 
+    const existing = await getPostById(id);
+
     const post = await updateBlogPost(id, {
       title: body.title.trim(),
       description: body.description?.trim() ?? "",
@@ -34,6 +37,12 @@ export async function PUT(request: Request, { params }: Params) {
     });
 
     if (!post) return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+    revalidateBlogPaths(existing?.slug);
+    if (post.slug !== existing?.slug) {
+      revalidateBlogPaths(post.slug);
+    }
+
     return NextResponse.json(post);
   } catch {
     return NextResponse.json({ error: "Failed to update post" }, { status: 500 });
@@ -43,7 +52,9 @@ export async function PUT(request: Request, { params }: Params) {
 export async function DELETE(_request: Request, { params }: Params) {
   try {
     const { id } = await params;
+    const existing = await getPostById(id);
     await deleteBlogPost(id);
+    revalidateBlogPaths(existing?.slug);
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json({ error: "Failed to delete post" }, { status: 500 });

@@ -4,6 +4,8 @@ import { PageLayout } from "@/components/PageLayout";
 import { PageHero, Card, Badge } from "@/components/ui";
 import { getPublishedPosts } from "@/lib/content";
 
+export const dynamic = "force-dynamic";
+
 export default async function BlogPage() {
   const posts = await getPublishedPosts();
 

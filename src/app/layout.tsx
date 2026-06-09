@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { siteConfig } from "@/lib/data";
+import { getSiteConfig } from "@/lib/site-config";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -13,59 +13,67 @@ const jetbrains = JetBrains_Mono({
   variable: "--font-jetbrains",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.domain),
-  title: {
-    default: `${siteConfig.name} | ${siteConfig.title}`,
-    template: `%s | ${siteConfig.shortName}`,
-  },
-  description: siteConfig.summary,
-  keywords: [
-    "Iftekhar Ahmed Eather",
-    "Eather Ahmed",
-    "Team Lead",
-    "System Engineer",
-    "PHP Developer",
-    "Laravel",
-    "Node.js",
-    "Scrum",
-    "CSPO",
-    "CSM",
-    "Export Japan",
-    "Kyoto.travel",
-    "Software Engineer Japan",
-  ],
-  authors: [{ name: siteConfig.name, url: siteConfig.linkedin }],
-  creator: siteConfig.name,
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: siteConfig.domain,
-    siteName: siteConfig.name,
-    title: `${siteConfig.name} | ${siteConfig.title}`,
-    description: siteConfig.tagline,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.name,
-    description: siteConfig.tagline,
-    creator: "@IftekharEather",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true },
-  },
-  alternates: {
-    canonical: siteConfig.domain,
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const siteConfig = await getSiteConfig();
 
-export default function RootLayout({
+  return {
+    metadataBase: new URL(siteConfig.domain),
+    title: {
+      default: `${siteConfig.name} | ${siteConfig.title}`,
+      template: `%s | ${siteConfig.shortName}`,
+    },
+    description: siteConfig.summary,
+    keywords: [
+      "Iftekhar Ahmed Eather",
+      "Eather Ahmed",
+      "Team Lead",
+      "System Engineer",
+      "SRE",
+      "PHP Developer",
+      "Laravel",
+      "Node.js",
+      "Python",
+      "Scrum",
+      "CSPO",
+      "CSM",
+      "Export Japan",
+      "Kyoto.travel",
+      "Software Engineer Japan",
+    ],
+    authors: [{ name: siteConfig.name, url: siteConfig.linkedin }],
+    creator: siteConfig.name,
+    openGraph: {
+      type: "website",
+      locale: "en_US",
+      url: siteConfig.domain,
+      siteName: siteConfig.name,
+      title: `${siteConfig.name} | ${siteConfig.title}`,
+      description: siteConfig.tagline,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: siteConfig.name,
+      description: siteConfig.tagline,
+      creator: "@IftekharEather",
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true },
+    },
+    alternates: {
+      canonical: siteConfig.domain,
+    },
+  };
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const siteConfig = await getSiteConfig();
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",

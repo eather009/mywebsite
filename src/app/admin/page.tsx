@@ -35,6 +35,7 @@ export default async function AdminDashboardPage() {
               ? "Hidden (not shown on site)"
               : settings.availabilityLabel}
           </p>
+          <p className="mt-2 text-sm text-slate-500">{settings.title}</p>
         </div>
       </div>
 

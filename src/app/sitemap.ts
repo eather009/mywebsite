@@ -1,9 +1,11 @@
 import { MetadataRoute } from "next";
-import { siteConfig } from "@/lib/data";
 import { getAllPublishedSlugs } from "@/lib/content";
+import { getSiteConfig } from "@/lib/site-config";
+
+export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const slugs = await getAllPublishedSlugs();
+  const [slugs, siteConfig] = await Promise.all([getAllPublishedSlugs(), getSiteConfig()]);
   const blogPosts = slugs.map((slug) => ({
     url: `${siteConfig.domain}/blog/${slug}`,
     lastModified: new Date(),

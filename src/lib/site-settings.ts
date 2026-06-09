@@ -27,6 +27,13 @@ export const AVAILABILITY_PRESETS: Record<
 };
 
 export type SiteSettingsData = {
+  siteName: string;
+  shortName: string;
+  title: string;
+  tagline: string;
+  summary: string;
+  location: string;
+  email: string;
   availabilityStatus: AvailabilityStatus;
   availabilityLabel: string;
   availabilityMessage: string | null;

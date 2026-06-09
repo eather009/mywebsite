@@ -2,9 +2,14 @@ import { Award, Globe, Languages } from "lucide-react";
 import { LinkedInIcon } from "@/components/icons";
 import { PageLayout } from "@/components/PageLayout";
 import { PageHero, Section, Card, Badge, ButtonPrimary } from "@/components/ui";
-import { siteConfig, certifications, skills } from "@/lib/data";
+import { certifications, skills } from "@/lib/data";
+import { getSiteConfig } from "@/lib/site-config";
 
-export default function AboutPage() {
+export const dynamic = "force-dynamic";
+
+export default async function AboutPage() {
+  const siteConfig = await getSiteConfig();
+
   return (
     <PageLayout>
       <PageHero

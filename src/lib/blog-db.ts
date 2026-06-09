@@ -1,5 +1,6 @@
 import slugify from "slugify";
 import readingTime from "reading-time";
+import { unstable_noStore as noStore } from "next/cache";
 import { prisma } from "./prisma";
 import { renderTipTapToHtml, extractPlainText } from "./tiptap";
 
@@ -62,6 +63,7 @@ function toListItem(post: {
 }
 
 export async function getPublishedPosts(): Promise<BlogPostListItem[]> {
+  noStore();
   const posts = await prisma.blogPost.findMany({
     where: { status: "published" },
     orderBy: { publishedAt: "desc" },
@@ -77,6 +79,7 @@ export async function getAllPostsAdmin(): Promise<BlogPostListItem[]> {
 }
 
 export async function getPostBySlug(slug: string, includeDraft = false) {
+  noStore();
   const post = await prisma.blogPost.findUnique({ where: { slug } });
   if (!post) return null;
   if (!includeDraft && post.status !== "published") return null;
@@ -104,6 +107,7 @@ export async function getPostById(id: string) {
 }
 
 export async function getAllPublishedSlugs() {
+  noStore();
   const posts = await prisma.blogPost.findMany({
     where: { status: "published" },
     select: { slug: true },

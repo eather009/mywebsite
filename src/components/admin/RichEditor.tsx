@@ -17,6 +17,7 @@ import {
   AlignRight,
   Bold,
   Code,
+  Eraser,
   Heading1,
   Heading2,
   Heading3,
@@ -26,6 +27,8 @@ import {
   Link2,
   List,
   ListOrdered,
+  Minus,
+  Pilcrow,
   Quote,
   Redo,
   Strikethrough,
@@ -76,7 +79,13 @@ export function RichEditor({ content, onChange, placeholder }: RichEditorProps) 
   const editor = useEditor({
     immediatelyRender: false,
     extensions: [
-      StarterKit.configure({ codeBlock: false, heading: { levels: [1, 2, 3] }, link: false }),
+      StarterKit.configure({
+        codeBlock: false,
+        heading: { levels: [1, 2, 3] },
+        link: false,
+        horizontalRule: {},
+        code: {},
+      }),
       Link.configure({
         openOnClick: false,
         HTMLAttributes: { rel: "noopener noreferrer" },
@@ -142,6 +151,11 @@ export function RichEditor({ content, onChange, placeholder }: RichEditorProps) 
     input.click();
   }, [editor]);
 
+  const clearFormat = useCallback(() => {
+    if (!editor) return;
+    editor.chain().focus().clearNodes().unsetAllMarks().run();
+  }, [editor]);
+
   if (!editor) return null;
 
   const iconClass = "h-4 w-4";
@@ -164,9 +178,15 @@ export function RichEditor({ content, onChange, placeholder }: RichEditorProps) 
         <ToolbarButton onClick={() => editor.chain().focus().toggleHighlight().run()} active={editor.isActive("highlight")} title="Highlight">
           <Highlighter className={iconClass} />
         </ToolbarButton>
+        <ToolbarButton onClick={() => editor.chain().focus().toggleCode().run()} active={editor.isActive("code")} title="Inline code">
+          <Code className={iconClass} />
+        </ToolbarButton>
 
         <span className="mx-1 h-5 w-px bg-slate-200" />
 
+        <ToolbarButton onClick={() => editor.chain().focus().setParagraph().run()} active={editor.isActive("paragraph")} title="Paragraph">
+          <Pilcrow className={iconClass} />
+        </ToolbarButton>
         <ToolbarButton onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()} active={editor.isActive("heading", { level: 1 })} title="Heading 1">
           <Heading1 className={iconClass} />
         </ToolbarButton>
@@ -190,6 +210,9 @@ export function RichEditor({ content, onChange, placeholder }: RichEditorProps) 
         </ToolbarButton>
         <ToolbarButton onClick={() => editor.chain().focus().toggleCodeBlock().run()} active={editor.isActive("codeBlock")} title="Code block">
           <Code className={iconClass} />
+        </ToolbarButton>
+        <ToolbarButton onClick={() => editor.chain().focus().setHorizontalRule().run()} title="Horizontal rule">
+          <Minus className={iconClass} />
         </ToolbarButton>
 
         <span className="mx-1 h-5 w-px bg-slate-200" />
@@ -215,6 +238,9 @@ export function RichEditor({ content, onChange, placeholder }: RichEditorProps) 
 
         <span className="mx-1 h-5 w-px bg-slate-200" />
 
+        <ToolbarButton onClick={clearFormat} title="Clear formatting">
+          <Eraser className={iconClass} />
+        </ToolbarButton>
         <ToolbarButton onClick={() => editor.chain().focus().undo().run()} disabled={!editor.can().undo()} title="Undo">
           <Undo className={iconClass} />
         </ToolbarButton>

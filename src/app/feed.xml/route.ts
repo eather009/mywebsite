@@ -1,8 +1,10 @@
 import { getPublishedPosts } from "@/lib/content";
-import { siteConfig } from "@/lib/data";
+import { getSiteConfig } from "@/lib/site-config";
+
+export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const posts = await getPublishedPosts();
+  const [posts, siteConfig] = await Promise.all([getPublishedPosts(), getSiteConfig()]);
 
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">

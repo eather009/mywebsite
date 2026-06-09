@@ -115,6 +115,15 @@ async function main() {
     update: {},
     create: {
       id: 1,
+      siteName: "Iftekhar Ahmed Eather",
+      shortName: "Iftekhar Eather",
+      title: "Senior System Engineer · SRE & Cloud · Technical Lead",
+      tagline:
+        "14+ years delivering scalable web platforms, leading engineering teams, and driving agile delivery for enterprise and tourism clients.",
+      summary:
+        "Senior System Engineer and Technical Lead with 14+ years building high-traffic platforms, practicing SRE on AWS and Alibaba Cloud, and shipping full-stack SaaS products with Laravel, Python, and Node.js.",
+      location: "Saitama, Japan",
+      email: "eather.ahmed@gmail.com",
       availabilityStatus: "open",
       availabilityLabel: "Open to opportunities",
       availabilityMessage:

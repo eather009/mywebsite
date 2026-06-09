@@ -17,6 +17,13 @@ model User {
 
 model SiteSettings {
   id                  Int      @id @default(1)
+  siteName            String?
+  shortName           String?
+  title               String?
+  tagline             String?  @db.Text
+  summary             String?  @db.Text
+  location            String?
+  email               String?
   availabilityStatus  String   @default("open")
   availabilityLabel   String   @default("Open to opportunities")
   availabilityMessage String?  @db.Text

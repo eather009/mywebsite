@@ -11,6 +11,13 @@ import {
 
 export function SettingsForm({ initial }: { initial: SiteSettingsData }) {
   const router = useRouter();
+  const [siteName, setSiteName] = useState(initial.siteName);
+  const [shortName, setShortName] = useState(initial.shortName);
+  const [title, setTitle] = useState(initial.title);
+  const [tagline, setTagline] = useState(initial.tagline);
+  const [summary, setSummary] = useState(initial.summary);
+  const [location, setLocation] = useState(initial.location);
+  const [email, setEmail] = useState(initial.email);
   const [status, setStatus] = useState<AvailabilityStatus>(initial.availabilityStatus);
   const [label, setLabel] = useState(initial.availabilityLabel);
   const [message, setMessage] = useState(initial.availabilityMessage ?? "");
@@ -19,6 +26,13 @@ export function SettingsForm({ initial }: { initial: SiteSettingsData }) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    setSiteName(initial.siteName);
+    setShortName(initial.shortName);
+    setTitle(initial.title);
+    setTagline(initial.tagline);
+    setSummary(initial.summary);
+    setLocation(initial.location);
+    setEmail(initial.email);
     setStatus(initial.availabilityStatus);
     setLabel(initial.availabilityLabel);
     setMessage(initial.availabilityMessage ?? "");
@@ -41,6 +55,13 @@ export function SettingsForm({ initial }: { initial: SiteSettingsData }) {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          siteName,
+          shortName,
+          title,
+          tagline,
+          summary,
+          location,
+          email,
           availabilityStatus: status,
           availabilityLabel: label,
           availabilityMessage: message,
@@ -63,6 +84,95 @@ export function SettingsForm({ initial }: { initial: SiteSettingsData }) {
 
   return (
     <form onSubmit={handleSave} className="max-w-2xl space-y-6">
+      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h2 className="text-lg font-semibold text-slate-900">Profile & Site Copy</h2>
+        <p className="mt-1 text-sm text-slate-600">
+          Update your name, title, and text shown on the homepage, about page, footer, and SEO metadata.
+        </p>
+
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <div className="sm:col-span-2">
+            <label htmlFor="siteName" className="block text-sm font-medium text-slate-700">
+              Full Name
+            </label>
+            <input
+              id="siteName"
+              value={siteName}
+              onChange={(e) => setSiteName(e.target.value)}
+              className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900"
+            />
+          </div>
+          <div>
+            <label htmlFor="shortName" className="block text-sm font-medium text-slate-700">
+              Short Name
+            </label>
+            <input
+              id="shortName"
+              value={shortName}
+              onChange={(e) => setShortName(e.target.value)}
+              className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900"
+            />
+          </div>
+          <div>
+            <label htmlFor="title" className="block text-sm font-medium text-slate-700">
+              Job Title
+            </label>
+            <input
+              id="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900"
+            />
+          </div>
+          <div>
+            <label htmlFor="location" className="block text-sm font-medium text-slate-700">
+              Location
+            </label>
+            <input
+              id="location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900"
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-slate-700">
+              Contact Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900"
+            />
+          </div>
+          <div className="sm:col-span-2">
+            <label htmlFor="tagline" className="block text-sm font-medium text-slate-700">
+              Tagline
+            </label>
+            <input
+              id="tagline"
+              value={tagline}
+              onChange={(e) => setTagline(e.target.value)}
+              className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900"
+            />
+          </div>
+          <div className="sm:col-span-2">
+            <label htmlFor="summary" className="block text-sm font-medium text-slate-700">
+              Professional Summary
+            </label>
+            <textarea
+              id="summary"
+              value={summary}
+              onChange={(e) => setSummary(e.target.value)}
+              rows={4}
+              className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900"
+            />
+          </div>
+        </div>
+      </div>
+
       <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
         <h2 className="text-lg font-semibold text-slate-900">Job Availability</h2>
         <p className="mt-1 text-sm text-slate-600">
@@ -126,7 +236,7 @@ export function SettingsForm({ initial }: { initial: SiteSettingsData }) {
           {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
           Save Settings
         </button>
-        {saved && <span className="text-sm text-green-600">Saved successfully</span>}
+        {saved && <span className="text-sm text-green-600">Saved — changes are live immediately</span>}
         {error && <span className="text-sm text-red-600">{error}</span>}
       </div>
     </form>
