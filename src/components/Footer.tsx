@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { navLinks } from "@/lib/data";
-import type { PublicSiteConfig } from "@/lib/site-config";
+import { getSiteConfig } from "@/lib/site-config";
 import { Mail, MapPin } from "lucide-react";
 import { LinkedInIcon } from "@/components/icons";
 
-export function Footer({ siteConfig }: { siteConfig: PublicSiteConfig }) {
+export async function Footer() {
+  const siteConfig = await getSiteConfig();
   return (
     <footer className="mt-auto">
       <div className="border-t border-[var(--port-border)] bg-[var(--ide-sidebar)]">
