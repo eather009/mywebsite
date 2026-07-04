@@ -11,6 +11,7 @@ import Highlight from "@tiptap/extension-highlight";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import CharacterCount from "@tiptap/extension-character-count";
 import { common, createLowlight } from "lowlight";
+import { tableExtensions, developerSkillsTableNode } from "@/lib/tiptap-table";
 import {
   AlignCenter,
   AlignLeft,
@@ -32,6 +33,7 @@ import {
   Quote,
   Redo,
   Strikethrough,
+  Table2,
   Underline as UnderlineIcon,
   Undo,
 } from "lucide-react";
@@ -98,6 +100,7 @@ export function RichEditor({ content, onChange, placeholder }: RichEditorProps) 
       TextAlign.configure({ types: ["heading", "paragraph"] }),
       CodeBlockLowlight.configure({ lowlight, defaultLanguage: "php" }),
       CharacterCount,
+      ...tableExtensions,
     ],
     content: content ? JSON.parse(content) : undefined,
     editorProps: {
@@ -159,6 +162,16 @@ export function RichEditor({ content, onChange, placeholder }: RichEditorProps) 
     editor.chain().focus().clearNodes().unsetAllMarks().run();
   }, [editor]);
 
+  const insertTable = useCallback(() => {
+    if (!editor) return;
+    editor.chain().focus().insertTable({ rows: 3, cols: 2, withHeaderRow: true }).run();
+  }, [editor]);
+
+  const insertSkillsTable = useCallback(() => {
+    if (!editor) return;
+    editor.chain().focus().insertContent(developerSkillsTableNode()).run();
+  }, [editor]);
+
   if (!editor) return null;
 
   const iconClass = "h-4 w-4";
@@ -216,6 +229,12 @@ export function RichEditor({ content, onChange, placeholder }: RichEditorProps) 
         </ToolbarButton>
         <ToolbarButton onClick={() => editor.chain().focus().setHorizontalRule().run()} title="Horizontal rule">
           <Minus className={iconClass} />
+        </ToolbarButton>
+        <ToolbarButton onClick={insertTable} title="Insert empty table (2 columns)">
+          <Table2 className={iconClass} />
+        </ToolbarButton>
+        <ToolbarButton onClick={insertSkillsTable} title="Insert skills transfer table">
+          <Table2 className={`${iconClass} text-blue-600`} />
         </ToolbarButton>
 
         <span className="mx-1 h-5 w-px bg-slate-200" />

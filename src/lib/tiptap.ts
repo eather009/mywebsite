@@ -7,6 +7,7 @@ import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import { common, createLowlight } from "lowlight";
+import { tableExtensions } from "./tiptap-table";
 
 const lowlight = createLowlight(common);
 
@@ -31,6 +32,7 @@ export const editorExtensions = [
     lowlight,
     defaultLanguage: "php",
   }),
+  ...tableExtensions,
 ];
 
 export function renderTipTapToHtml(content: string): string {

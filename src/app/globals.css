@@ -510,6 +510,36 @@ body {
   border-radius: 0 0.25rem 0.25rem 0;
 }
 
+.blog-content table,
+.prose-editor table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9375rem;
+}
+
+.blog-content th,
+.blog-content td,
+.prose-editor th,
+.prose-editor td {
+  border: 1px solid var(--port-border);
+  padding: 0.625rem 0.875rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.blog-content th,
+.prose-editor th {
+  background: var(--ide-panel);
+  color: var(--port-fg);
+  font-weight: 600;
+}
+
+.blog-content tr:nth-child(even) td,
+.prose-editor tr:nth-child(even) td {
+  background: color-mix(in srgb, var(--ide-panel) 50%, transparent);
+}
+
 .prose-editor h1, .prose-editor h2, .prose-editor h3 { color: var(--port-fg); }
 .prose-editor p { color: var(--port-muted); line-height: 1.75; }
 .prose-editor a { color: var(--ide-accent); }
