@@ -1,0 +1,74 @@
+---
+title: "Protect Custom WordPress URLs with Group-Based Basic Authentication"
+description: "Secure specific WordPress paths with different username/password groups — no bloated membership plugin required."
+date: "2025-04-25"
+tags: ["WordPress", "Security", "Basic Auth", "Plugin"]
+author: "Iftekhar Ahmed Eather"
+---
+
+Do you need to protect specific URLs on your WordPress site with different usernames and passwords? Whether you are securing internal pages, private downloads, or multilingual routes, **Group Basic Auth Manager** makes it simple to implement Basic Authentication per URL group.
+
+## What Is Group-Based Basic Auth?
+
+Basic Authentication requires a username and password before a browser can access a resource. Unlike global auth plugins, Group Basic Auth Manager lets you define **multiple groups**, each with:
+
+1. Unique credentials
+2. A set of protected URLs
+3. Strong password enforcement
+
+## Key Features
+
+- Create multiple auth groups with unique username/password pairs
+- Restrict individual URLs or patterns (e.g. `/media/list/`, `/fr/private-page/`)
+- Password validation: require strong, secure passwords
+- Compatible with multilingual plugins and rewrite-heavy sites (e.g. TranslatePress)
+- Smart fallback via WordPress `template_redirect`
+- No coding required — everything configurable in the admin panel
+
+## How to Install
+
+1. Download the plugin ZIP and upload it to `/wp-content/plugins/`.
+2. Activate it from **Plugins → Installed Plugins**.
+3. Go to **Settings → Basic Auth Groups**.
+4. Add a new group with a label, credentials, and a list of protected URLs.
+5. Save — the plugin generates `.htaccess` and `.htpasswd` files automatically.
+
+## How Protection Works
+
+The plugin uses two layers so protected URLs stay secure even on complex setups. Passwords are hashed with **BCRYPT** before being written to `.htpasswd-groupname`.
+
+### 1. Primary: .htaccess Rules
+
+It writes Apache rules dynamically to protect defined URLs with Basic Auth. This is the most efficient method when Apache and `.htaccess` are available.
+
+### 2. Fallback: PHP-Based Protection
+
+If `.htaccess` is not supported or another plugin rewrites URLs dynamically, protection runs during page rendering via `template_redirect`.
+
+Either way, your protected content stays behind authentication.
+
+## Example Use Cases
+
+- Restrict `/media/list/` with a dedicated password for media partners
+- Protect `/en/secret-reports/` and `/fr/private-data/` for internal teams
+- Secure downloadable PDF or HTML files without a full membership plugin
+
+## Plugin Requirements
+
+- WordPress 5.0 or later
+- PHP 7.4+
+- Apache with `mod_rewrite` and `.htaccess` support (for the primary layer)
+
+## Troubleshooting Tips
+
+- Make sure your `.htaccess` file is writable by the web server.
+- Use strong passwords with uppercase, lowercase, numbers, and symbols.
+- Ensure Apache has `AllowOverride All` enabled in the virtual host config.
+- After saving a group, confirm `.htpasswd-groupname` files exist in the site root.
+- If auth does not trigger, check whether Nginx is in use — the PHP fallback should still apply via `template_redirect`.
+
+## Conclusion
+
+With Group Basic Auth Manager, you do not need bloated membership plugins just to secure a few key pages. It is fast, lightweight, and focused: protect specific parts of your site with group-based login credentials.
+
+Give it a try and keep your content safe with confidence.

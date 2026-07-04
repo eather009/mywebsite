@@ -77,8 +77,9 @@ export function PostEditor({ postId, initial }: PostEditorProps) {
     const formData = new FormData();
     formData.append("file", file);
     const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
-    const data = await res.json();
+    const data = (await res.json()) as { url?: string; error?: string };
     if (data.url) setCoverImage(data.url);
+    else setError(data.error ?? "Cover image upload failed");
   }
 
   return (

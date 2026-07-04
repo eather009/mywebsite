@@ -15,6 +15,7 @@ export const editorExtensions = [
     codeBlock: false,
     heading: { levels: [1, 2, 3] },
     link: false,
+    underline: false,
   }),
   Link.configure({
     openOnClick: false,

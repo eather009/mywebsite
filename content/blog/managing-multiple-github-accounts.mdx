@@ -1,0 +1,113 @@
+---
+title: "Managing Multiple GitHub Accounts: How to Fix Permission Denied Errors"
+description: "Use SSH config aliases to stop Git from using your work key on personal repos — fix 'Permission denied to office-user' errors cleanly."
+date: "2026-04-08"
+tags: ["Git", "GitHub", "DevOps", "SSH"]
+author: "Iftekhar Ahmed Eather"
+---
+
+Have you ever tried to push code to your personal GitHub repository, only to be met with a frustrating error like this?
+
+```
+ERROR: Permission to personal-user/repo.git denied to office-user.
+```
+
+It is a classic headache. Your computer is "helpfully" trying to use your professional work credentials for your personal projects. Here is the cleanest way to fix it using the SSH config method.
+
+## The Problem
+
+By default, Git and SSH often grab the first key they find (usually your work key) and offer it to GitHub. GitHub recognizes you as your work account, realizes that account does not have permission to write to your personal repo, and rejects the push.
+
+## The Solution: The ~/.ssh/config File
+
+The most elegant fix is to create aliases for GitHub. This tells your computer exactly which key to use for which account.
+
+### Step 1: Create Your SSH Keys
+
+Ensure you have separate keys for both accounts:
+
+- `~/.ssh/id_rsa_office` (or `id_ed25519_office`)
+- `~/.ssh/id_rsa_personal` (or `id_ed25519_personal`)
+
+Generate a new key if needed:
+
+```bash
+ssh-keygen -t ed25519 -C "you@work.com" -f ~/.ssh/id_ed25519_office
+ssh-keygen -t ed25519 -C "you@gmail.com" -f ~/.ssh/id_ed25519_personal
+```
+
+Add each public key to the correct GitHub account under **Settings → SSH and GPG keys**.
+
+### Step 2: Edit Your SSH Config
+
+Open your terminal and type:
+
+```bash
+nano ~/.ssh/config
+```
+
+### Step 3: Add the Configuration Block
+
+Paste the following (adjust filenames to match yours):
+
+```
+# Office GitHub Account
+Host github.com-office
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_office
+    IdentitiesOnly yes
+
+# Personal GitHub Account
+Host github.com-personal
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_personal
+    IdentitiesOnly yes
+```
+
+`IdentitiesOnly yes` prevents SSH from offering other keys and accidentally picking the wrong one.
+
+### Step 4: Update Your Remote URL
+
+When you clone a personal repo, use the alias instead of `github.com`:
+
+```bash
+git clone git@github.com-personal:your-username/your-repo.git
+```
+
+If you already have a project folder, update the remote:
+
+```bash
+git remote set-url origin git@github.com-personal:your-username/your-repo.git
+```
+
+For work repos, use `github.com-office` in the same way.
+
+### Step 5: Set Local Git Identity
+
+Make sure commits use the correct name and email inside each project:
+
+```bash
+git config user.name "Your Name"
+git config user.email "you@gmail.com"
+```
+
+Use `git config --local` so each repo keeps its own identity.
+
+### Step 6: Test the Connection
+
+```bash
+ssh -T git@github.com-personal
+ssh -T git@github.com-office
+```
+
+You should see a success message naming the correct GitHub user for each host.
+
+## Why This Works
+
+By using `github.com-personal` in your remote URL, you trigger the matching block in your SSH config. Your machine knows: for this URL, use the personal key and ignore the office one.
+
+## Conclusion
+
+No more switching keys manually or hitting permission errors. With a small edit to `~/.ssh/config`, you can move seamlessly between professional work and personal open-source projects.

@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
+import { writeFile, mkdir, access } from "fs/promises";
+import { constants } from "fs";
 import path from "path";
+import { getUploadsDir } from "@/lib/uploads-path";
 
 const MAX_SIZE = 5 * 1024 * 1024;
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
@@ -26,13 +28,20 @@ export async function POST(request: Request) {
     const buffer = Buffer.from(bytes);
     const ext = file.name.split(".").pop()?.toLowerCase() ?? "jpg";
     const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-    const uploadDir = path.join(process.cwd(), "public", "uploads");
+    const uploadDir = getUploadsDir();
+    const filePath = path.join(uploadDir, filename);
 
     await mkdir(uploadDir, { recursive: true });
-    await writeFile(path.join(uploadDir, filename), buffer);
+    await writeFile(filePath, buffer);
+    await access(filePath, constants.F_OK | constants.R_OK);
 
     return NextResponse.json({ url: `/uploads/${filename}` });
-  } catch {
-    return NextResponse.json({ error: "Upload failed" }, { status: 500 });
+  } catch (err) {
+    const uploadDir = getUploadsDir();
+    console.error("Upload failed:", err, { uploadDir, cwd: process.cwd() });
+    return NextResponse.json(
+      { error: "Upload failed — check server logs and public/uploads permissions" },
+      { status: 500 }
+    );
   }
 }

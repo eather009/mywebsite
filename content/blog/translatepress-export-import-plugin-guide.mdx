@@ -1,0 +1,67 @@
+---
+title: "TranslatePress Export Import Plugin Guide"
+description: "Export, import, and roll back TranslatePress translation data as CSV — with automatic backups before every import."
+date: "2024-12-24"
+tags: ["WordPress", "TranslatePress", "i18n", "Plugin"]
+author: "Iftekhar Ahmed Eather"
+---
+
+The **TranslatePress Export Import** plugin is an essential tool for managing translation data in WordPress. This guide covers exporting, importing, and recovering from failed imports — including backup and rollback workflows.
+
+## Features
+
+- Export all TranslatePress translation tables as a CSV file
+- Import translation data from a CSV file
+- Automatically back up the database before every import
+- Roll back to the latest backup if errors occur during import
+- User-friendly admin UI with clear success and error notifications
+
+## Installation
+
+1. Download the plugin from the GitLab repository and upload it to the WordPress site’s `wp-content/plugins/` directory.
+2. Activate the plugin through the **Plugins** menu in WordPress.
+3. Open **TP Export/Import** in the admin sidebar.
+
+## Export Translations
+
+1. Navigate to **TP Export/Import** in the WordPress admin menu.
+2. Click **Export Translations** to download a CSV file containing all TranslatePress data.
+
+Use exports before major site changes, plugin updates, or bulk edits so you always have a portable copy of your translation strings.
+
+## Import Translations
+
+1. Navigate to **TP Export/Import** in the WordPress admin menu.
+2. In the **Import Data** section, select a CSV file with translation data.
+3. Click **Import Translations**.
+
+The plugin creates an automatic database backup **before** the import runs. If something goes wrong, you can restore the previous state without manual SQL work.
+
+## Rollback
+
+1. Navigate to **TP Export/Import** in the WordPress admin menu.
+2. Click **Rollback Last Backup** to restore the most recent pre-import backup.
+
+Use rollback when:
+
+- Imported CSV columns do not match the expected format
+- Translations overwrite production strings incorrectly
+- A partial import leaves the site in an inconsistent state
+
+## Best Practices
+
+- **Export first** — always download a fresh CSV before importing new data.
+- **Test on staging** — run imports on a staging copy of the site when possible.
+- **Validate CSV structure** — confirm headers and language columns match your TranslatePress setup.
+- **Keep backups off-site** — store exported CSV files in version control or cloud storage for long-term recovery.
+
+## When This Plugin Helps Most
+
+- Migrating translations between environments (local → staging → production)
+- Bulk-editing strings in a spreadsheet and re-importing
+- Recovering quickly after a bad import without restoring the full database
+- Handing translation files to agencies or reviewers outside WordPress
+
+## Conclusion
+
+TranslatePress Export Import turns translation data into a portable, reversible workflow. Export for safety, import for speed, and rollback when you need a safety net — all from a single admin screen.

@@ -37,6 +37,25 @@ else
 fi
 echo ""
 
+# 1b. Uploads directory
+echo "--- 1b. Blog uploads ---"
+if [[ -d "$APP_DIR/public/uploads" ]]; then
+  count=$(find "$APP_DIR/public/uploads" -maxdepth 1 -type f 2>/dev/null | wc -l | tr -d ' ')
+  ok "public/uploads exists ($count files)"
+else
+  fail "missing $APP_DIR/public/uploads — run: mkdir -p public/uploads"
+fi
+standalone_uploads="$APP_DIR/.next/standalone/public/uploads"
+if [[ -d "$standalone_uploads" ]] && find "$standalone_uploads" -maxdepth 1 -type f 2>/dev/null | grep -q .; then
+  warn "files in .next/standalone/public/uploads — run deploy.sh to migrate to public/uploads"
+fi
+if [[ -f "$APP_DIR/deploy/nginx/eatherahmed.conf" ]] || [[ -f /etc/nginx/sites-available/eatherahmed ]]; then
+  grep -rq 'public/uploads' /etc/nginx/sites-available/eatherahmed /etc/nginx/sites-enabled/eatherahmed "$APP_DIR/deploy/nginx/eatherahmed.conf" 2>/dev/null \
+    && ok "nginx configured to serve /uploads from disk" \
+    || warn "nginx may not alias /uploads to public/uploads"
+fi
+echo ""
+
 # 2. Environment
 echo "--- 2. Environment (.env) ---"
 if [[ -f "$APP_DIR/.env" ]]; then
@@ -102,33 +121,42 @@ else
 fi
 echo ""
 
-# 7. Apache proxy
-echo "--- 7. Apache httpd ---"
-if systemctl is-active --quiet httpd 2>/dev/null; then
-  ok "httpd running"
-else
-  fail "httpd not running"
-fi
-if sudo httpd -M 2>/dev/null | grep -q proxy_http_module; then
-  ok "mod_proxy_http loaded"
-else
-  fail "mod_proxy_http not loaded"
-fi
-if [[ -f /etc/httpd/conf.d/eatherahmed.conf ]]; then
-  ok "eatherahmed.conf present"
-  grep -q '127.0.0.1:3000' /etc/httpd/conf.d/eatherahmed.conf && ok "HTTP vhost proxies to :3000" || warn "HTTP vhost may not proxy to Node"
-else
-  fail "missing /etc/httpd/conf.d/eatherahmed.conf"
-fi
-if [[ -f /etc/httpd/conf.d/eatherahmed-le-ssl.conf ]]; then
-  if grep -q '127.0.0.1:3000' /etc/httpd/conf.d/eatherahmed-le-ssl.conf; then
-    ok "HTTPS vhost proxies to :3000"
+# 7. Reverse proxy (Nginx on Ubuntu, Apache on Amazon Linux)
+echo "--- 7. Reverse proxy ---"
+if systemctl is-active --quiet nginx 2>/dev/null; then
+  ok "nginx running"
+  if [[ -f /etc/nginx/sites-enabled/eatherahmed ]] || [[ -f /etc/nginx/sites-available/eatherahmed ]]; then
+    ok "eatherahmed nginx site present"
+    grep -rq '127.0.0.1:3000' /etc/nginx/sites-enabled/ /etc/nginx/sites-available/ 2>/dev/null \
+      && ok "nginx proxies to :3000" \
+      || warn "nginx site may not proxy to Node :3000"
   else
-    fail "HTTPS vhost exists but NO ProxyPass to :3000 — this causes 503 on https://"
-    echo "       Fix: add ProxyPass / http://127.0.0.1:3000/ to eatherahmed-le-ssl.conf"
+    fail "missing nginx eatherahmed site — sudo cp deploy/nginx/eatherahmed.conf /etc/nginx/sites-available/eatherahmed"
+  fi
+elif systemctl is-active --quiet httpd 2>/dev/null; then
+  ok "httpd running"
+  if sudo httpd -M 2>/dev/null | grep -q proxy_http_module; then
+    ok "mod_proxy_http loaded"
+  else
+    fail "mod_proxy_http not loaded"
+  fi
+  if [[ -f /etc/httpd/conf.d/eatherahmed.conf ]]; then
+    ok "eatherahmed.conf present"
+    grep -q '127.0.0.1:3000' /etc/httpd/conf.d/eatherahmed.conf && ok "HTTP vhost proxies to :3000" || warn "HTTP vhost may not proxy to Node"
+  else
+    fail "missing /etc/httpd/conf.d/eatherahmed.conf"
+  fi
+  if [[ -f /etc/httpd/conf.d/eatherahmed-le-ssl.conf ]]; then
+    if grep -q '127.0.0.1:3000' /etc/httpd/conf.d/eatherahmed-le-ssl.conf; then
+      ok "HTTPS vhost proxies to :3000"
+    else
+      fail "HTTPS vhost exists but NO ProxyPass to :3000 — this causes 503 on https://"
+    fi
+  else
+    warn "no SSL vhost yet (HTTP only until certbot)"
   fi
 else
-  warn "no SSL vhost yet (HTTP only until certbot)"
+  fail "neither nginx nor httpd is running"
 fi
 echo ""
 
@@ -152,5 +180,9 @@ echo ""
 echo "=== Recent PM2 logs (last 15 lines) ==="
 pm2 logs eatherahmed --nostream --lines 15 2>/dev/null || true
 echo ""
-echo "=== Recent Apache errors ==="
-sudo tail -5 /var/log/httpd/eatherahmed-error.log 2>/dev/null || sudo tail -5 /var/log/httpd/error_log 2>/dev/null || true
+echo "=== Recent web server errors ==="
+if [[ -f /var/log/nginx/error.log ]]; then
+  sudo tail -5 /var/log/nginx/error.log 2>/dev/null || true
+else
+  sudo tail -5 /var/log/httpd/eatherahmed-error.log 2>/dev/null || sudo tail -5 /var/log/httpd/error_log 2>/dev/null || true
+fi

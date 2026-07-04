@@ -19,11 +19,13 @@ module.exports = {
         APP_ROOT: appRoot,
         UPLOAD_DIR: path.join(appRoot, "public", "uploads"),
       },
-      // Tuned for 1 GB RAM instance (MariaDB + Apache share the rest)
-      node_args: "--max-old-space-size=384",
-      max_memory_restart: "384M",
+      // Tuned for 4 GB RAM (MariaDB + Nginx share the rest)
+      node_args: "--max-old-space-size=1536",
+      max_memory_restart: "1600M",
       error_file: path.join(appRoot, "logs/pm2-error.log"),
       out_file: path.join(appRoot, "logs/pm2-out.log"),
+      merge_logs: true,
+      time: true,
     },
   ],
 };

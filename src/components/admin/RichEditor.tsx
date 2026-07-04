@@ -83,6 +83,7 @@ export function RichEditor({ content, onChange, placeholder }: RichEditorProps) 
         codeBlock: false,
         heading: { levels: [1, 2, 3] },
         link: false,
+        underline: false,
         horizontalRule: {},
         code: {},
       }),
@@ -143,9 +144,11 @@ export function RichEditor({ content, onChange, placeholder }: RichEditorProps) 
       formData.append("file", file);
 
       const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
-      const data = await res.json();
+      const data = (await res.json()) as { url?: string; error?: string };
       if (data.url) {
         editor.chain().focus().setImage({ src: data.url, alt: file.name }).run();
+      } else {
+        window.alert(data.error ?? "Image upload failed");
       }
     };
     input.click();
