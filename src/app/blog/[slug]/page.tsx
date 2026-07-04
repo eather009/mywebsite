@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Clock, Share2 } from "lucide-react";
-import { LinkedInIcon } from "@/components/icons";
+import { ArrowLeft, Clock } from "lucide-react";
 import { PageLayout } from "@/components/PageLayout";
 import { Badge } from "@/components/ui";
 import { BlogContent, BlogCover } from "@/components/BlogContent";
+import { BlogShare } from "@/components/BlogShare";
 import { getPostBySlug } from "@/lib/content";
 import { getSiteConfig } from "@/lib/site-config";
 import type { Metadata } from "next";
@@ -51,7 +51,6 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   const shareUrl = `${siteConfig.domain}/blog/${slug}`;
-  const linkedInShare = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`;
 
   return (
     <PageLayout>
@@ -91,6 +90,10 @@ export default async function BlogPostPage({ params }: Props) {
                 {post.readingTime}
               </span>
             </div>
+
+            <div className="mt-8">
+              <BlogShare url={shareUrl} title={post.title} description={post.description} />
+            </div>
           </header>
 
           {post.coverImage && (
@@ -104,27 +107,7 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
 
           <footer className="mt-12 border-t border-[var(--port-border)] pt-8">
-            <p className="text-sm font-medium text-[var(--port-muted)]">Share this article</p>
-            <div className="mt-4 flex flex-wrap gap-3">
-              <a
-                href={linkedInShare}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded bg-[#0A66C2] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90"
-              >
-                <LinkedInIcon className="h-4 w-4" />
-                Share on LinkedIn
-              </a>
-              <a
-                href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(post.title)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded border border-[var(--port-border)] bg-[var(--ide-panel)] px-4 py-2 text-sm font-medium text-[var(--port-fg)] transition hover:border-[var(--ide-accent)]"
-              >
-                <Share2 className="h-4 w-4" />
-                Share on X
-              </a>
-            </div>
+            <BlogShare url={shareUrl} title={post.title} description={post.description} />
           </footer>
         </div>
       </article>
