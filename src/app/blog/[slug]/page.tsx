@@ -90,10 +90,6 @@ export default async function BlogPostPage({ params }: Props) {
                 {post.readingTime}
               </span>
             </div>
-
-            <div className="mt-8">
-              <BlogShare url={shareUrl} title={post.title} description={post.description} />
-            </div>
           </header>
 
           {post.coverImage && (
