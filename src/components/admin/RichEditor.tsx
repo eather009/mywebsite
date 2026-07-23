@@ -10,8 +10,10 @@ import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import CharacterCount from "@tiptap/extension-character-count";
+import { DOMParser as ProseMirrorDOMParser } from "@tiptap/pm/model";
 import { common, createLowlight } from "lowlight";
 import { tableExtensions, developerSkillsTableNode } from "@/lib/tiptap-table";
+import { looksLikeMarkdown, markdownToHtml } from "@/lib/markdown";
 import {
   AlignCenter,
   AlignLeft,
@@ -37,7 +39,7 @@ import {
   Underline as UnderlineIcon,
   Undo,
 } from "lucide-react";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 const lowlight = createLowlight(common);
 
@@ -78,6 +80,8 @@ function ToolbarButton({
 }
 
 export function RichEditor({ content, onChange, placeholder }: RichEditorProps) {
+  const lastEmittedRef = useRef(content);
+
   const editor = useEditor({
     immediatelyRender: false,
     extensions: [
@@ -108,18 +112,41 @@ export function RichEditor({ content, onChange, placeholder }: RichEditorProps) 
         class:
           "prose-editor min-h-[420px] max-w-none px-6 py-5 focus:outline-none",
       },
+      handlePaste(view, event) {
+        const clipboard = event.clipboardData;
+        if (!clipboard) return false;
+
+        // Prefer Markdown when plain text looks like MD (VS Code / Cursor often
+        // also put a useless HTML wrapper on the clipboard).
+        const text = clipboard.getData("text/plain");
+        if (!text || !looksLikeMarkdown(text)) {
+          return false;
+        }
+
+        const html = markdownToHtml(text);
+        const dom = document.createElement("div");
+        dom.innerHTML = html;
+        const slice = ProseMirrorDOMParser.fromSchema(view.state.schema).parseSlice(dom);
+
+        view.dispatch(
+          view.state.tr.replaceSelection(slice).scrollIntoView().setMeta("paste", true)
+        );
+        return true;
+      },
     },
     onUpdate: ({ editor: ed }) => {
-      onChange(JSON.stringify(ed.getJSON()));
+      const json = JSON.stringify(ed.getJSON());
+      lastEmittedRef.current = json;
+      onChange(json);
     },
   });
 
   useEffect(() => {
     if (!editor || !content) return;
-    const current = JSON.stringify(editor.getJSON());
-    if (current !== content) {
-      editor.commands.setContent(JSON.parse(content));
-    }
+    // Only apply external content (initial load / reset), not our own onChange echoes.
+    if (content === lastEmittedRef.current) return;
+    lastEmittedRef.current = content;
+    editor.commands.setContent(JSON.parse(content), { emitUpdate: false });
   }, [content, editor]);
 
   const setLink = useCallback(() => {
@@ -276,6 +303,7 @@ export function RichEditor({ content, onChange, placeholder }: RichEditorProps) 
       <div className="border-t border-slate-200 bg-slate-50 px-4 py-2 text-xs text-slate-500">
         {editor.storage.characterCount.characters()} characters ·{" "}
         {editor.storage.characterCount.words()} words
+        <span className="ml-2 text-slate-400">· Paste Markdown to auto-format</span>
       </div>
     </div>
   );
