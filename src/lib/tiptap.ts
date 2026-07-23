@@ -1,4 +1,3 @@
-import { generateHTML } from "@tiptap/html";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
@@ -35,34 +34,11 @@ export const editorExtensions = [
   ...tableExtensions,
 ];
 
-export function renderTipTapToHtml(content: string): string {
-  try {
-    const json = JSON.parse(content);
-    if (!json || typeof json !== "object") return "";
-    return generateHTML(json, editorExtensions);
-  } catch {
-    return `<p>${escapeHtml(content)}</p>`;
-  }
-}
-
-export function extractPlainText(content: string): string {
-  const html = renderTipTapToHtml(content);
-  return html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
-}
-
 export function emptyDocument() {
   return JSON.stringify({
     type: "doc",
     content: [{ type: "paragraph" }],
   });
-}
-
-function escapeHtml(text: string) {
-  return text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
 }
 
 export function isValidTipTapContent(content: string): boolean {

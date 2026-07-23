@@ -2,7 +2,7 @@ import slugify from "slugify";
 import readingTime from "reading-time";
 import { unstable_noStore as noStore } from "next/cache";
 import { prisma } from "./prisma";
-import { renderTipTapToHtml, extractPlainText } from "./tiptap";
+import { renderTipTapToHtml, extractPlainText } from "./tiptap-render";
 
 export type BlogPostListItem = {
   id: string;
