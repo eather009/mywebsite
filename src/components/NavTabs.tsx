@@ -5,37 +5,36 @@ import { usePathname } from "next/navigation";
 import { siteConfig, navLinks } from "@/lib/data";
 import { isNavActive } from "@/lib/nav";
 
-function tabClassName(active: boolean) {
-  return active ? "ide-tab ide-tab-active" : "ide-tab";
-}
-
 export function NavTabs() {
   const pathname = usePathname();
 
   return (
-    <div className="ide-tabbar hidden md:block">
-      <div className="mx-auto flex max-w-6xl items-center overflow-x-auto">
-        {navLinks.map((link, index) => (
+    <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
+      {navLinks.map((link) => {
+        const active = isNavActive(link.href, pathname);
+        return (
           <Link
             key={link.href}
             href={link.href}
-            className={tabClassName(isNavActive(link.href, pathname))}
-            aria-current={isNavActive(link.href, pathname) ? "page" : undefined}
+            className={`rounded-md px-3 py-2 text-sm font-medium transition ${
+              active
+                ? "bg-[var(--port-accent-soft)] text-[var(--port-accent)]"
+                : "text-[var(--port-muted)] hover:bg-[var(--port-panel)] hover:text-[var(--port-fg)]"
+            }`}
+            aria-current={active ? "page" : undefined}
           >
-            <span className="ide-tab-icon">{index === 0 ? "⌘" : "◦"}</span>
-            {link.label.toLowerCase()}.tsx
+            {link.label}
           </Link>
-        ))}
-        <Link
-          href={siteConfig.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="ide-tab ml-auto border-l-0 !border-r-0 text-[var(--ide-type)] hover:text-[var(--ide-type)]"
-        >
-          <span className="ide-tab-icon">→</span>
-          connect_with_me()
-        </Link>
-      </div>
-    </div>
+        );
+      })}
+      <Link
+        href={siteConfig.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="ml-2 rounded-md border border-[var(--port-border)] px-3 py-2 text-sm font-medium text-[var(--port-fg)] transition hover:border-[var(--port-accent)] hover:text-[var(--port-accent)]"
+      >
+        LinkedIn
+      </Link>
+    </nav>
   );
 }

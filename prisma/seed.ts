@@ -56,22 +56,33 @@ async function main() {
 
   await prisma.siteSettings.upsert({
     where: { id: 1 },
-    update: {},
+    update: {
+      title:
+        "Technical Lead · Senior System Engineer · System Architecture · Cloud (AWS & Alibaba Cloud)",
+      tagline:
+        "Engineering Manager delivering enterprise software, SaaS, and AI platforms across Japan and Bangladesh — with deep experience in system architecture and cloud (AWS & Alibaba Cloud).",
+      summary:
+        "Technical Lead and Senior System Engineer with 16+ years delivering enterprise software, SaaS platforms, AI solutions, and government digital transformation projects. Seven-plus years leading Agile/Scrum teams through full delivery lifecycles — architecture, cloud infrastructure, backend engineering, and stakeholder alignment. Certified Scrum Alliance professional (CSPO, CSM, A-CSD, CSD).",
+      location: "Saitama, Japan",
+      availabilityMessage:
+        "Actively exploring Technical Lead, Engineering Manager, and Senior System Engineer roles.",
+    },
     create: {
       id: 1,
       siteName: "Iftekhar Ahmed Eather",
       shortName: "Iftekhar Eather",
-      title: "Senior System Engineer · SRE & Cloud · Technical Lead",
+      title:
+        "Technical Lead · Senior System Engineer · System Architecture · Cloud (AWS & Alibaba Cloud)",
       tagline:
-        "14+ years delivering scalable web platforms, leading engineering teams, and driving agile delivery for enterprise and tourism clients.",
+        "Engineering Manager delivering enterprise software, SaaS, and AI platforms across Japan and Bangladesh — with deep experience in system architecture and cloud (AWS & Alibaba Cloud).",
       summary:
-        "Senior System Engineer and Technical Lead with 14+ years building high-traffic platforms, practicing SRE on AWS and Alibaba Cloud, and shipping full-stack SaaS products with Laravel, Python, and Node.js.",
+        "Technical Lead and Senior System Engineer with 16+ years delivering enterprise software, SaaS platforms, AI solutions, and government digital transformation projects. Seven-plus years leading Agile/Scrum teams through full delivery lifecycles — architecture, cloud infrastructure, backend engineering, and stakeholder alignment. Certified Scrum Alliance professional (CSPO, CSM, A-CSD, CSD).",
       location: "Saitama, Japan",
       email: "eather.ahmed@gmail.com",
       availabilityStatus: "open",
       availabilityLabel: "Open to opportunities",
       availabilityMessage:
-        "Actively exploring senior engineering and leadership roles.",
+        "Actively exploring Technical Lead, Engineering Manager, and Senior System Engineer roles.",
     },
   });
 

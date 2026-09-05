@@ -1,7 +1,8 @@
 export const siteConfig = {
   name: "Iftekhar Ahmed Eather",
   shortName: "Iftekhar Eather",
-  title: "Senior System Engineer · SRE & Cloud · Technical Lead",
+  title:
+    "Technical Lead · Senior System Engineer · System Architecture · Cloud (AWS & Alibaba Cloud)",
   domain: "https://www.eatherahmed.com",
   email: "eather.ahmed@gmail.com",
   location: "Saitama, Japan",
@@ -9,13 +10,23 @@ export const siteConfig = {
   github: "https://github.com/eather009",
   twitter: "https://twitter.com/IftekharEather",
   tagline:
-    "14+ years delivering scalable web platforms, leading engineering teams, and driving agile delivery for enterprise and tourism clients.",
+    "Engineering Manager delivering enterprise software, SaaS, and AI platforms across Japan and Bangladesh — with deep experience in system architecture and cloud (AWS & Alibaba Cloud).",
   summary:
-    "Senior System Engineer and Technical Lead with 14+ years building high-traffic platforms, practicing SRE on AWS and Alibaba Cloud, and shipping full-stack SaaS products with Laravel, Python, and Node.js — including RAG-based AI chatbots, community management hubs, and real-time multiplayer apps.",
+    "Technical Lead and Senior System Engineer with 16+ years delivering enterprise software, SaaS platforms, AI solutions, and government digital transformation projects. Seven-plus years leading Agile/Scrum teams through full delivery lifecycles — architecture, cloud infrastructure, backend engineering, and stakeholder alignment. Certified Scrum Alliance professional (CSPO, CSM, A-CSD, CSD).",
 };
 
+export const focusAreas = [
+  "Technical Lead",
+  "Senior System Engineer",
+  "System Architecture",
+  "AWS",
+  "Alibaba Cloud",
+  "Backend & Full-Stack",
+  "AI & SaaS",
+];
+
 export const stats = [
-  { label: "Years Experience", value: "14+" },
+  { label: "Years Experience", value: "16+" },
   { label: "Teams Led", value: "10+" },
   { label: "Certifications", value: "4" },
   { label: "Projects Delivered", value: "20+" },
@@ -50,30 +61,32 @@ export const certifications = [
 
 export const skills = [
   {
-    category: "Technical Leadership",
+    category: "Leadership & Delivery",
     items: [
       "Technical Lead",
-      "Team Leadership",
+      "Engineering Management",
       "Agile / Scrum",
-      "Project Management",
       "Stakeholder Management",
+      "Roadmap & Release Strategy",
+      "Cross-functional Teams",
     ],
   },
   {
-    category: "SRE & Cloud",
+    category: "System Architecture & Cloud",
     items: [
-      "Site Reliability Engineering",
-      "Systems Engineering",
+      "System Architecture",
       "AWS",
-      "Alibaba Cloud",
+      "Alibaba Cloud (Aliyun)",
+      "Site Reliability Engineering",
       "Linux",
       "CI/CD",
-      "System Architecture",
+      "Infrastructure Design",
+      "Terraform",
     ],
   },
   {
-    category: "Full-Stack Development",
-    items: ["Laravel", "Python", "FastAPI", "Node.js", "PHP", "Vue.js", "WordPress", "MySQL"],
+    category: "Backend & Full-Stack",
+    items: ["Laravel", "PHP", "Python", "FastAPI", "Node.js", "MySQL", "Vue.js", "WordPress"],
   },
   {
     category: "AI & SaaS",
@@ -92,16 +105,28 @@ export const skills = [
 export const experience = [
   {
     company: "Export Japan Inc.",
-    role: "Team Lead Manager & System Engineer",
-    period: "Apr 2019 – Present",
+    role: "Engineering Manager",
+    period: "Jul 2023 – Present",
     location: "Tokyo, Japan",
     url: "https://www.linkedin.com/company/export-japan-inc-/",
     highlights: [
-      "Lead project scoping, budget estimation, and delivery for large-scale tourism digital platforms including Kyoto.travel.",
-      "Built EXJ AI Chatbot — a RAG-powered SaaS with vector search, FastAPI backend, and Docker deployment for 24/7 customer Q&A.",
-      "Manage system engineers and developers; conduct code reviews, sprint planning, and agile ceremonies.",
-      "Design secure, scalable architectures across AWS and Alibaba Cloud environments.",
-      "Drive backend API development and system integration for high-traffic international web applications.",
+      "Lead cross-functional Scrum teams (~10 engineers, designers, QA, and stakeholders) delivering enterprise SaaS, AI, and multilingual tourism platforms.",
+      "Drive project scoping, budget estimation, and delivery for large-scale platforms including Kyoto.travel.",
+      "Design secure, scalable architectures across AWS and Alibaba Cloud (dev, staging, production).",
+      "Facilitate agile ceremonies; conduct code reviews; mentor system engineers and developers.",
+      "Contribute backend architecture, API development, and system integration for high-traffic tourism applications.",
+    ],
+  },
+  {
+    company: "Export Japan Inc.",
+    role: "System Engineer",
+    period: "Feb 2019 – Present",
+    location: "Tokyo, Japan",
+    url: "https://www.linkedin.com/company/export-japan-inc-/",
+    highlights: [
+      "Led architecture for high-traffic platforms including Toyox, Nikon, and Tokyo SME.",
+      "Designed cloud infrastructure on AWS and Aliyun; built monitoring and reporting (BIMAN V1).",
+      "Introduced agile workflow practices that improved delivery efficiency and cross-functional collaboration.",
     ],
   },
   {
@@ -123,17 +148,18 @@ export const experience = [
     url: "https://www.linkedin.com/company/divineitlimited",
     highlights: [
       "Core developer on enterprise products: Core4VoIP Billing, Core4Switch, and AccounticaXL.",
-      "Built scalable backend systems with PHP, jQuery, and MySQL.",
+      "Built scalable backend systems with PHP, jQuery, and MySQL; optimized large-scale CDR processing.",
       "Contributed to CakePHP 3.5.0 as an official open-source contributor.",
     ],
   },
   {
-    company: "Bangladesh University of Business & Technology",
-    role: "Assistant Programmer",
-    period: "Sep 2009 – Feb 2010",
+    company: "Freelance / Self-employed",
+    role: "Software Developer",
+    period: "Jan 2010 – Jul 2012",
     location: "Dhaka, Bangladesh",
     highlights: [
-      "Developed examination management software for the Controller of Examinations.",
+      "Delivered e-commerce, mess management, and campus social platforms end-to-end with PHP and MySQL.",
+      "Supported Controller of Examinations software for BUBT.",
     ],
   },
 ];
@@ -150,7 +176,7 @@ export const projects = [
     name: "DonateSync Community Hub",
     description:
       "Multi-tenant SaaS for nonprofits, clubs, and member organizations — memberships, donations and dues, event RSVPs, OCR receipt workflows, email and in-app notifications, and an optional member portal with financial transparency.",
-    tags: ["SaaS", "Multi-tenant", "OCR", "Member Portal", "Community Platform"],
+    tags: ["SaaS", "Multi-tenant", "OCR", "Member Portal", "Architecture"],
     url: "https://donatesync.com/",
   },
   {
@@ -163,8 +189,8 @@ export const projects = [
   {
     name: "Kyoto.travel",
     description:
-      "Major tourism information platform serving international visitors. Led system restructuring, backend architecture, and agile delivery for high-traffic multilingual content.",
-    tags: ["PHP", "AWS", "Tourism", "Team Lead"],
+      "Major tourism information platform serving international visitors. Led system restructuring, cloud architecture (AWS/Aliyun), and agile delivery for high-traffic multilingual content.",
+    tags: ["System Architecture", "AWS", "Alibaba Cloud", "Technical Lead"],
     url: "https://www.kyoto.travel/",
   },
   {
@@ -184,8 +210,8 @@ export const projects = [
   {
     name: "Tourism & Travel Platforms",
     description:
-      "Large-scale digital platforms for international tourism clients at Export Japan Inc., including multilingual content systems and high-traffic web applications.",
-    tags: ["Team Lead", "AWS", "Alibaba Cloud", "Agile"],
+      "Large-scale digital platforms for international tourism clients at Export Japan Inc., including multilingual content systems and high-traffic web applications on AWS and Alibaba Cloud.",
+    tags: ["Engineering Manager", "AWS", "Alibaba Cloud", "Agile"],
     url: "https://www.linkedin.com/company/export-japan-inc-/",
   },
   {
@@ -198,10 +224,10 @@ export const projects = [
 ];
 
 export const featuredProjectNames = [
+  "Kyoto.travel",
+  "EXJ AI Chatbot",
   "DonateSync Community Hub",
   "Tourism & Travel Platforms",
-  "Government Digital Platforms",
-  "E-Learning & HR Systems",
 ];
 
 export const featuredProjects = featuredProjectNames
@@ -210,18 +236,18 @@ export const featuredProjects = featuredProjectNames
 
 export const recommendations = [
   {
-    name: "Mirza S. Reza",
-    title: "Peer Colleague",
+    name: "Mizanur Rahman",
+    title: "Colleague",
     quote:
-      "He is a true expert in PHP and NodeJS and brings a wealth of experience to any project. Particularly impressive in his ability to quickly code and deliver results on challenging tasks.",
-    linkedin: "https://www.linkedin.com/in/mirzasreza",
+      "Iftekhar is a fast learner and a genuinely hardworking professional. His attention to detail, curiosity, and appetite to learn consistently impressed me. A certified Agile and Scrum professional, Iftekhar communicates with real clarity and has proven himself a dependable team player. He would be a valuable addition to any engineering team, and I recommend him without hesitation.",
+    linkedin: "https://www.linkedin.com/in/mizan",
   },
   {
-    name: "Raiful Hasan",
-    title: "Colleague (4+ years)",
+    name: "Mohammad Hasan Tareq",
+    title: "Former Colleague",
     quote:
-      "An energetic and passionate software engineer and a very good coder with deep algorithm skills. Successfully completed miscellaneous projects as project manager. I would strongly recommend him.",
-    linkedin: "https://www.linkedin.com/in/hasanraiful",
+      "Beyond his strong skills in system engineering, cloud solutions, and project management, Iftekhar was always ready to step up and help anyone facing a challenge. I strongly recommend Iftekhar to any organization looking for an outstanding leader and system architect.",
+    linkedin: "https://www.linkedin.com/in/hsntareq",
   },
 ];
 

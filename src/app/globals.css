@@ -1,30 +1,33 @@
 @import "tailwindcss";
 
 :root {
-  /* IDE — soft light theme (easy on the eyes) */
-  --ide-bg: #f4f7fa;
+  /* Corporate technical portfolio — steel navy / slate */
+  --ide-bg: #f7f8fa;
   --ide-sidebar: #ffffff;
-  --ide-panel: #eef2f6;
-  --ide-titlebar: #e8edf2;
-  --ide-tab-inactive: #e8edf2;
+  --ide-panel: #eef1f5;
+  --ide-titlebar: #ffffff;
+  --ide-tab-inactive: #f7f8fa;
   --ide-tab-active: #ffffff;
-  --ide-border: #d4dce5;
-  --ide-border-subtle: #e2e8f0;
-  --ide-fg: #2c3340;
-  --ide-muted: #64748b;
-  --ide-accent: #4a7fd7;
-  --ide-accent-hover: #3a6fc7;
-  --ide-accent-soft: rgb(74 127 215 / 0.1);
-  --ide-string: #9a6700;
-  --ide-keyword: #0550ae;
-  --ide-type: #0d7a6f;
-  --ide-function: #7c5e00;
-  --ide-comment: #6b7280;
+  --ide-border: #d8dee6;
+  --ide-border-subtle: #e8ecf1;
+  --ide-fg: #1a2332;
+  --ide-muted: #5a6577;
+  --ide-accent: #1e4fd6;
+  --ide-accent-hover: #183fb0;
+  --ide-accent-soft: rgb(30 79 214 / 0.1);
+  --ide-string: #8a5a00;
+  --ide-keyword: #1e4fd6;
+  --ide-type: #0f6b63;
+  --ide-function: #6b4f00;
+  --ide-comment: #7a8494;
   --ide-number: #116329;
-  --ide-statusbar: #5b8fd9;
-  --ide-selection: rgb(74 127 215 / 0.18);
+  --ide-statusbar: #1e4fd6;
+  --ide-selection: rgb(30 79 214 / 0.16);
   --ide-gutter: #94a3b8;
-  --ide-hero-gradient: linear-gradient(180deg, #f8fafb 0%, #eef3f8 100%);
+  --ide-hero-gradient:
+    radial-gradient(ellipse 80% 60% at 10% 0%, rgb(30 79 214 / 0.08), transparent 55%),
+    radial-gradient(ellipse 60% 50% at 90% 10%, rgb(15 107 99 / 0.06), transparent 50%),
+    linear-gradient(180deg, #fbfcfd 0%, #eef2f7 100%);
 
   --port-bg: var(--ide-bg);
   --port-surface: var(--ide-sidebar);
@@ -62,14 +65,14 @@
   --color-muted: var(--muted);
   --color-border: var(--border);
   --color-accent: var(--accent);
-  --font-sans: var(--font-jetbrains), ui-monospace, monospace;
+  --font-sans: var(--font-source-sans), "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
 body {
   background: var(--port-bg);
   color: var(--port-fg);
-  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-family: var(--font-source-sans), "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
 }
 
 ::selection {
@@ -181,10 +184,13 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(var(--ide-border-subtle) 1px, transparent 1px);
-  background-size: 100% 1.5rem;
-  opacity: 0.5;
+  background-image:
+    linear-gradient(90deg, transparent 0%, transparent 49%, rgb(216 222 230 / 0.45) 50%, transparent 51%),
+    linear-gradient(0deg, transparent 0%, transparent 49%, rgb(216 222 230 / 0.35) 50%, transparent 51%);
+  background-size: 48px 48px;
+  opacity: 0.35;
   pointer-events: none;
+  mask-image: linear-gradient(180deg, #000 0%, transparent 85%);
 }
 
 .portfolio-hero-inner {
@@ -193,7 +199,7 @@ body {
   width: 100%;
   max-width: 80rem;
   margin: 0 auto;
-  padding: 3rem 1.5rem 3rem;
+  padding: 3.5rem 1.5rem 3.5rem;
 }
 
 .portfolio-hero-inner-full {
@@ -202,41 +208,62 @@ body {
 
 @media (min-width: 1024px) {
   .portfolio-hero-inner-full {
-    padding: 4rem 1.5rem 4rem;
+    padding: 5rem 1.5rem 4.5rem;
   }
 }
 
 .portfolio-intro {
-  max-width: none;
+  max-width: 42rem;
 }
 
 .portfolio-greeting {
-  font-size: 1rem;
-  font-weight: 400;
-  color: var(--ide-comment);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--port-accent);
 }
 
 .portfolio-name {
-  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
   font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
   color: var(--port-fg);
   margin-top: 0.75rem;
 }
 
 .portfolio-role {
-  font-size: clamp(1.125rem, 2vw, 1.375rem);
-  font-weight: 400;
-  color: var(--ide-muted);
-  margin-top: 0.75rem;
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  font-weight: 500;
+  color: var(--port-muted);
+  margin-top: 0.875rem;
+  max-width: 40rem;
+  line-height: 1.5;
+}
+
+.portfolio-focus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.portfolio-focus-chip {
+  border: 1px solid var(--port-border);
+  background: rgb(255 255 255 / 0.72);
+  color: var(--port-fg);
+  border-radius: 0.25rem;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
 }
 
 .portfolio-stats {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
-  margin-top: 2rem;
+  margin-top: 2.25rem;
   padding-top: 2rem;
   border-top: 1px solid var(--port-border);
 }
@@ -248,15 +275,18 @@ body {
 }
 
 .portfolio-stat-value {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
-  color: var(--ide-type);
+  color: var(--port-fg);
   line-height: 1;
+  letter-spacing: -0.02em;
 }
 
 .portfolio-stat-label {
   margin-top: 0.375rem;
   font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
   color: var(--port-muted);
 }
 
@@ -365,22 +395,21 @@ body {
 .section-label {
   display: inline-block;
   font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: var(--ide-comment);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--port-accent);
   margin-bottom: 0.75rem;
-  font-family: var(--font-jetbrains), ui-monospace, monospace;
 }
 
 .section-label::before {
-  content: "// ";
-  color: var(--ide-comment);
+  content: none;
 }
 
 .php-card,
 .port-card {
   border: 1px solid var(--port-border);
-  border-radius: 0.375rem;
+  border-radius: 0.5rem;
   background: var(--ide-sidebar);
   padding: 1.5rem;
   transition: border-color 0.2s, box-shadow 0.2s;
@@ -388,8 +417,8 @@ body {
 
 .php-card:hover,
 .port-card:hover {
-  border-color: var(--ide-accent);
-  box-shadow: 0 0 0 1px rgb(74 127 215 / 0.12), 0 4px 16px rgb(15 23 42 / 0.06);
+  border-color: rgb(30 79 214 / 0.35);
+  box-shadow: 0 8px 24px rgb(26 35 50 / 0.06);
 }
 
 .php-btn-primary,

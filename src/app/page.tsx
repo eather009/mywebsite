@@ -3,7 +3,7 @@ import {
   ArrowRight,
   Award,
   Briefcase,
-  Code2,
+  Cloud,
   Mail,
   MapPin,
 } from "lucide-react";
@@ -15,7 +15,6 @@ import {
   stats,
   certifications,
   experience,
-  projects,
   featuredProjects,
   recommendations,
   skills,
@@ -36,28 +35,16 @@ export default async function HomePage() {
 
   return (
     <PageLayout>
-      {/* Portfolio hero */}
       <section className="portfolio-hero border-b border-[var(--port-border)]">
         <div className="portfolio-hero-inner portfolio-hero-inner-full">
           <AvailabilityBadge settings={settings} />
           <AvailabilityMessage settings={settings} />
 
-          <p className="portfolio-greeting mt-6">// Hello, I&apos;m</p>
-          <h1 className="portfolio-name">
-            <span className="syntax-keyword">const </span>
-            <span className="syntax-function">developer</span>
-            <span className="syntax-punct"> = </span>
-            <span className="syntax-string">&quot;{siteConfig.shortName}&quot;</span>
-            <span className="syntax-punct">;</span>
-            <span className="ide-cursor" aria-hidden="true" />
-          </h1>
-          <p className="portfolio-role">
-            <span className="syntax-type">@role</span>
-            <span className="syntax-punct"> </span>
-            <span className="syntax-string">&quot;{siteConfig.title}&quot;</span>
-          </p>
+          <p className="portfolio-greeting mt-6">Engineering Manager · Export Japan Inc.</p>
+          <h1 className="portfolio-name">{siteConfig.name}</h1>
+          <p className="portfolio-role">{siteConfig.title}</p>
           <p className="portfolio-intro mt-6 text-lg leading-relaxed text-[var(--port-muted)]">
-            {siteConfig.summary}
+            {siteConfig.tagline}
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -71,22 +58,13 @@ export default async function HomePage() {
             </ButtonPrimary>
             <ButtonSecondary href="/contact">
               <Mail className="h-5 w-5" />
-              Contact Me
+              Get in Touch
             </ButtonSecondary>
           </div>
 
           <div className="mt-6 flex items-center gap-2 text-sm text-[var(--port-muted)]">
             <MapPin className="h-4 w-4 text-[var(--port-accent)]" aria-hidden="true" />
             {siteConfig.location}
-          </div>
-
-          <div className="portfolio-stats">
-            {stats.map((stat) => (
-              <div key={stat.label}>
-                <p className="portfolio-stat-value">{stat.value}</p>
-                <p className="portfolio-stat-label">{stat.label}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -95,31 +73,39 @@ export default async function HomePage() {
         id="recruiters"
         label="01 — Overview"
         title="For Recruiters & Hiring Managers"
-        subtitle="A quick overview of what I bring to engineering teams and leadership roles."
+        subtitle="Technical leadership, system architecture, and cloud delivery for enterprise and SaaS platforms."
       >
+        <div className="mb-10 grid grid-cols-2 gap-6 border-b border-[var(--port-border)] pb-10 sm:grid-cols-4">
+          {stats.map((stat) => (
+            <div key={stat.label}>
+              <p className="portfolio-stat-value">{stat.value}</p>
+              <p className="portfolio-stat-label">{stat.label}</p>
+            </div>
+          ))}
+        </div>
         <div className="grid gap-6 md:grid-cols-3">
           <Card>
             <Briefcase className="h-8 w-8 text-[var(--port-accent)]" aria-hidden="true" />
-            <h3 className="mt-4 text-lg font-semibold text-[var(--port-fg)]">Team Leadership</h3>
+            <h3 className="mt-4 text-lg font-semibold text-[var(--port-fg)]">Technical Leadership</h3>
             <p className="mt-2 text-sm leading-relaxed text-[var(--port-muted)]">
-              Leading system engineers at Export Japan Inc. — managing sprints, code reviews,
-              infrastructure design, and cross-department delivery for tourism platforms.
+              Engineering Manager at Export Japan Inc. — leading cross-functional Scrum teams,
+              code reviews, delivery governance, and stakeholder alignment.
             </p>
           </Card>
           <Card>
-            <Code2 className="h-8 w-8 text-[var(--port-accent)]" aria-hidden="true" />
-            <h3 className="mt-4 text-lg font-semibold text-[var(--port-fg)]">Full-Stack Backend Focus</h3>
+            <Cloud className="h-8 w-8 text-[var(--port-accent)]" aria-hidden="true" />
+            <h3 className="mt-4 text-lg font-semibold text-[var(--port-fg)]">System Architecture & Cloud</h3>
             <p className="mt-2 text-sm leading-relaxed text-[var(--port-muted)]">
-              14+ years building PHP/Laravel and Node.js applications with production experience
-              on AWS and Alibaba Cloud for high-traffic platforms.
+              Designing secure, scalable architectures on AWS and Alibaba Cloud for high-traffic
+              tourism and enterprise platforms.
             </p>
           </Card>
           <Card>
             <Award className="h-8 w-8 text-[var(--port-accent)]" aria-hidden="true" />
             <h3 className="mt-4 text-lg font-semibold text-[var(--port-fg)]">Certified Agile Leader</h3>
             <p className="mt-2 text-sm leading-relaxed text-[var(--port-muted)]">
-              CSPO, CSM, and A-CSD certified. Proven track record introducing agile workflows
-              and improving delivery efficiency across teams.
+              CSPO, CSM, A-CSD, and CSD certified. Proven track record improving sprint
+              predictability, release quality, and engineering practices.
             </p>
           </Card>
         </div>
@@ -128,12 +114,12 @@ export default async function HomePage() {
       <Section
         label="02 — Experience"
         title="Recent Experience"
-        subtitle="Key roles demonstrating leadership and technical depth."
+        subtitle="Leadership and system engineering roles across Japan and Bangladesh."
         className="bg-[var(--port-panel)]"
       >
         <div className="space-y-6">
           {experience.slice(0, 2).map((job) => (
-            <Card key={job.company}>
+            <Card key={`${job.company}-${job.role}-${job.period}`}>
               <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
                 <div>
                   <h3 className="text-lg font-semibold text-[var(--port-fg)]">{job.role}</h3>
@@ -165,7 +151,11 @@ export default async function HomePage() {
         </Link>
       </Section>
 
-      <Section label="03 — Work" title="Featured Work" subtitle="Recent SaaS and AI products plus enterprise platforms I've led and built.">
+      <Section
+        label="03 — Portfolio"
+        title="Portfolio Highlights"
+        subtitle="Architecture-led platforms across tourism, AI SaaS, and enterprise systems."
+      >
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {featuredProjects.map((project) => (
             <Card key={project.name}>
@@ -191,19 +181,17 @@ export default async function HomePage() {
           ))}
         </div>
         <Link
-          href={siteConfig.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/projects"
           className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[var(--port-accent)] hover:text-[var(--port-accent-hover)]"
         >
-          View full portfolio on LinkedIn <ArrowRight className="h-4 w-4" />
+          View all projects <ArrowRight className="h-4 w-4" />
         </Link>
       </Section>
 
       <Section
         label="04 — Skills"
-        title="Technical Skills"
-        subtitle="Core competencies across leadership, backend, and cloud."
+        title="Skills & Expertise"
+        subtitle="Leadership, system architecture, cloud, and full-stack engineering."
         className="bg-[var(--port-panel)]"
       >
         <div className="grid gap-6 md:grid-cols-2">
@@ -221,9 +209,9 @@ export default async function HomePage() {
       </Section>
 
       <Section
-        label="05 — References"
-        title="Professional References"
-        subtitle="Recommendations from colleagues on LinkedIn."
+        label="05 — Recommendations"
+        title="LinkedIn Recommendations"
+        subtitle="Feedback from colleagues on leadership, architecture, and delivery."
       >
         <div className="grid gap-6 md:grid-cols-2">
           {recommendations.map((rec) => (
@@ -277,7 +265,7 @@ export default async function HomePage() {
         <Section
           label="07 — Blog"
           title="Latest from the Blog"
-          subtitle="Insights on engineering leadership, agile practices, and backend development."
+          subtitle="Notes on engineering leadership, cloud, and delivery."
         >
           <div className="grid gap-6 md:grid-cols-3">
             {posts.map((post) => (
@@ -315,13 +303,13 @@ export default async function HomePage() {
 
       <section className="border-t border-[var(--port-border)] bg-[var(--port-surface)] py-20">
         <div className="mx-auto max-w-6xl px-6 text-center">
-          <p className="section-label">Let&apos;s Connect</p>
+          <p className="section-label">Get in Touch</p>
           <h2 className="text-3xl font-bold text-[var(--port-fg)] md:text-4xl">
             Interested in working together?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-[var(--port-muted)]">
-            I&apos;m open to senior engineering, team lead, and project management opportunities.
-            Connect via LinkedIn or send a message directly.
+            Open to Technical Lead, Engineering Manager, and Senior System Engineer roles.
+            Connect on LinkedIn or reach out directly.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <ButtonPrimary

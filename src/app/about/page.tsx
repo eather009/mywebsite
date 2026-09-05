@@ -13,33 +13,28 @@ export default async function AboutPage() {
   return (
     <PageLayout>
       <PageHero
-        title="About Me"
-        subtitle="Engineering leader with 14+ years building enterprise platforms, leading teams, and delivering results for global clients."
-        label="about.tsx"
+        title="About"
+        subtitle="Technical Lead and Senior System Engineer with 16+ years building enterprise platforms, leading teams, and delivering on AWS and Alibaba Cloud."
+        label="Profile"
       />
-      <Section title="Professional Summary" label="interface Developer">
+      <Section title="Professional Summary" label="Overview">
         <div className="grid gap-8 lg:grid-cols-3">
-          <div className="lg:col-span-2 space-y-4 text-[var(--port-muted)] leading-relaxed">
+          <div className="space-y-4 leading-relaxed text-[var(--port-muted)] lg:col-span-2">
             <p>
-              I am <strong className="text-[var(--port-fg)]">{siteConfig.name}</strong>, a{" "}
-              {siteConfig.title.toLowerCase()} based in {siteConfig.location}. I specialize in
-              backend architecture, team leadership, and agile project delivery for high-traffic
-              web applications.
+              I am <strong className="text-[var(--port-fg)]">{siteConfig.name}</strong>,{" "}
+              {siteConfig.title.toLowerCase()}, based in {siteConfig.location}.
+            </p>
+            <p>{siteConfig.summary}</p>
+            <p>
+              At Export Japan Inc., I serve as Engineering Manager — leading architecture,
+              cloud infrastructure, and agile delivery for tourism digital platforms including
+              Kyoto.travel.
             </p>
             <p>
-              Currently at Export Japan Inc., I lead the system team responsible for tourism
-              digital platforms including Kyoto.travel — designing infrastructure on AWS and
-              Alibaba Cloud, managing engineers, and ensuring on-time delivery through Scrum
-              practices.
-            </p>
-            <p>
-              Before Japan, I spent nearly four years as Project Manager at Tappware Solutions,
-              delivering government e-governance systems, and three years as Senior Software
-              Engineer at Divine IT, building enterprise VoIP billing and accounting platforms.
-            </p>
-            <p>
-              I hold CSPO, CSM, and A-CSD certifications from Scrum Alliance and was recognized
-              as an official contributor to CakePHP 3.5.0.
+              Previously I was Project Manager at Tappware Solutions (government e-governance
+              systems) and Senior Software Engineer at Divine IT (enterprise VoIP billing and
+              accounting platforms). I hold CSPO, CSM, A-CSD, and CSD certifications and was
+              recognized as a CakePHP 3.5.0 contributor.
             </p>
           </div>
 
@@ -47,19 +42,19 @@ export default async function AboutPage() {
             <h3 className="font-semibold text-[var(--port-fg)]">Quick Facts</h3>
             <dl className="mt-4 space-y-4 text-sm">
               <div>
-                <dt className="text-[var(--ide-comment)]">location</dt>
+                <dt className="text-[var(--port-muted)]">Location</dt>
                 <dd className="mt-1 text-[var(--port-fg)]">{siteConfig.location}</dd>
               </div>
               <div>
-                <dt className="text-[var(--ide-comment)]">experience</dt>
-                <dd className="mt-1 text-[var(--port-fg)]">14+ years</dd>
+                <dt className="text-[var(--port-muted)]">Experience</dt>
+                <dd className="mt-1 text-[var(--port-fg)]">16+ years</dd>
               </div>
               <div>
-                <dt className="text-[var(--ide-comment)]">role</dt>
-                <dd className="mt-1 text-[var(--port-fg)]">{siteConfig.title}</dd>
+                <dt className="text-[var(--port-muted)]">Current role</dt>
+                <dd className="mt-1 text-[var(--port-fg)]">Engineering Manager</dd>
               </div>
               <div>
-                <dt className="text-[var(--ide-comment)]">company</dt>
+                <dt className="text-[var(--port-muted)]">Company</dt>
                 <dd className="mt-1 text-[var(--port-fg)]">Export Japan Inc.</dd>
               </div>
             </dl>
@@ -79,12 +74,12 @@ export default async function AboutPage() {
       <Section
         title="Languages"
         subtitle="Communication skills for international teams."
-        className="border-t border-[var(--port-border)] bg-[var(--ide-panel)]"
-        label="locale"
+        className="border-t border-[var(--port-border)] bg-[var(--port-panel)]"
+        label="Languages"
       >
         <div className="grid gap-4 md:grid-cols-2">
           <Card>
-            <Languages className="h-6 w-6 text-[var(--ide-accent)]" />
+            <Languages className="h-6 w-6 text-[var(--port-accent)]" />
             <h3 className="mt-3 font-semibold text-[var(--port-fg)]">English</h3>
             <p className="mt-1 text-sm text-[var(--port-muted)]">Professional working proficiency</p>
           </Card>
@@ -96,7 +91,7 @@ export default async function AboutPage() {
         </div>
       </Section>
 
-      <Section title="Skills & Expertise" label="type Skills">
+      <Section title="Skills & Expertise" label="Capabilities">
         <div className="grid gap-6 md:grid-cols-2">
           {skills.map((group) => (
             <Card key={group.category}>
@@ -114,15 +109,15 @@ export default async function AboutPage() {
       <Section
         title="Certifications"
         subtitle="Verified credentials from Scrum Alliance."
-        className="border-t border-[var(--port-border)] bg-[var(--ide-panel)]"
-        label="credentials[]"
+        className="border-t border-[var(--port-border)] bg-[var(--port-panel)]"
+        label="Credentials"
       >
         <div className="grid gap-4 md:grid-cols-2">
           {certifications.map((cert) => (
             <a key={cert.name} href={cert.url} target="_blank" rel="noopener noreferrer">
-              <Card className="hover:border-[var(--ide-accent)]">
+              <Card className="hover:border-[var(--port-accent)]">
                 <div className="flex items-start gap-4">
-                  <Award className="h-6 w-6 shrink-0 text-[var(--ide-function)]" />
+                  <Award className="h-6 w-6 shrink-0 text-[var(--port-accent)]" />
                   <div>
                     <h3 className="font-semibold text-[var(--port-fg)]">{cert.name}</h3>
                     <p className="mt-1 text-sm text-[var(--port-muted)]">

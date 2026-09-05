@@ -5,22 +5,19 @@ import { NavTabs } from "@/components/NavTabs";
 
 export function Header() {
   return (
-    <header className="port-header sticky top-0 z-50">
-      <div className="ide-titlebar">
-        <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-2.5">
-          <div className="ide-traffic-lights" aria-hidden="true">
-            
-          </div>
-          <Link href="/" className="group flex min-w-0 flex-1 items-center gap-2">
-            <span className="truncate text-xs text-[var(--ide-muted)]">
-              
-            </span>
-          </Link>
-          <MobileNav />
-        </div>
+    <header className="port-header sticky top-0 z-50 border-b border-[var(--port-border)] bg-[var(--port-surface)]/95 backdrop-blur-md">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
+        <Link href="/" className="min-w-0">
+          <span className="block truncate text-base font-semibold tracking-tight text-[var(--port-fg)]">
+            {siteConfig.shortName}
+          </span>
+          <span className="mt-0.5 block truncate text-xs text-[var(--port-muted)]">
+            Technical Lead · System Architecture · Cloud
+          </span>
+        </Link>
+        <NavTabs />
+        <MobileNav />
       </div>
-
-      <NavTabs />
     </header>
   );
 }

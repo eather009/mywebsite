@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import { getSiteConfig } from "@/lib/site-config";
 
-const inter = Inter({
+const sourceSans = Source_Sans_3({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-source-sans",
+  display: "swap",
 });
 
 const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains",
+  display: "swap",
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -26,10 +28,12 @@ export async function generateMetadata(): Promise<Metadata> {
     keywords: [
       "Iftekhar Ahmed Eather",
       "Eather Ahmed",
-      "Team Lead",
-      "System Engineer",
-      "SRE",
-      "PHP Developer",
+      "Technical Lead",
+      "Engineering Manager",
+      "Senior System Engineer",
+      "System Architecture",
+      "AWS",
+      "Alibaba Cloud",
       "Laravel",
       "Node.js",
       "Python",
@@ -96,14 +100,17 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrains.variable} h-full scroll-smooth`}>
+    <html
+      lang="en"
+      className={`${sourceSans.variable} ${jetbrains.variable} h-full scroll-smooth`}
+    >
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-[var(--port-bg)] font-mono text-[var(--port-fg)] antialiased">
+      <body className="flex min-h-full flex-col bg-[var(--port-bg)] font-sans text-[var(--port-fg)] antialiased">
         {children}
       </body>
     </html>
