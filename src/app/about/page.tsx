@@ -14,21 +14,20 @@ export default async function AboutPage() {
     <PageLayout>
       <PageHero
         title="About"
-        subtitle="Technical Lead and Senior System Engineer with 16+ years building enterprise platforms, leading teams, and delivering on AWS and Alibaba Cloud."
+        subtitle="Background, skills, and certifications for Technical Lead and Senior System Engineer roles."
         label="Profile"
       />
       <Section title="Professional Summary" label="Overview">
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="space-y-4 leading-relaxed text-[var(--port-muted)] lg:col-span-2">
             <p>
-              I am <strong className="text-[var(--port-fg)]">{siteConfig.name}</strong>,{" "}
-              {siteConfig.title.toLowerCase()}, based in {siteConfig.location}.
+              I am <strong className="text-[var(--port-fg)]">{siteConfig.name}</strong>, an
+              Engineering Manager and Technical Lead based in {siteConfig.location}.
             </p>
             <p>{siteConfig.summary}</p>
             <p>
-              At Export Japan Inc., I serve as Engineering Manager — leading architecture,
-              cloud infrastructure, and agile delivery for tourism digital platforms including
-              Kyoto.travel.
+              At Export Japan Inc., I lead architecture, cloud infrastructure, and agile delivery
+              for tourism digital platforms including Kyoto.travel.
             </p>
             <p>
               Previously I was Project Manager at Tappware Solutions (government e-governance
