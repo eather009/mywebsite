@@ -149,7 +149,7 @@ export function SettingsForm({ initial }: { initial: SiteSettingsData }) {
           </div>
           <div className="sm:col-span-2">
             <label htmlFor="tagline" className="block text-sm font-medium text-slate-700">
-              Tagline
+              Tagline (short — header/footer)
             </label>
             <input
               id="tagline"
@@ -157,6 +157,9 @@ export function SettingsForm({ initial }: { initial: SiteSettingsData }) {
               onChange={(e) => setTagline(e.target.value)}
               className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900"
             />
+            <p className="mt-1 text-xs text-slate-500">
+              One short line. Do not paste the full Professional Summary here.
+            </p>
           </div>
           <div className="sm:col-span-2">
             <label htmlFor="summary" className="block text-sm font-medium text-slate-700">
@@ -169,6 +172,9 @@ export function SettingsForm({ initial }: { initial: SiteSettingsData }) {
               rows={4}
               className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900"
             />
+            <p className="mt-1 text-xs text-slate-500">
+              Longer About / homepage intro text (shown under Professional Summary).
+            </p>
           </div>
         </div>
       </div>

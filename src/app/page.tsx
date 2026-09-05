@@ -44,7 +44,7 @@ export default async function HomePage() {
           <h1 className="portfolio-name">{siteConfig.name}</h1>
           <p className="portfolio-role">{siteConfig.title}</p>
           <p className="portfolio-intro mt-6 text-lg leading-relaxed text-[var(--port-muted)]">
-            {siteConfig.tagline}
+            {siteConfig.summary}
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">

@@ -60,9 +60,9 @@ async function main() {
       title:
         "Technical Lead · Senior System Engineer · System Architecture · Cloud (AWS & Alibaba Cloud)",
       tagline:
-        "Engineering Manager delivering enterprise software, SaaS, and AI platforms across Japan and Bangladesh — with deep experience in system architecture and cloud (AWS & Alibaba Cloud).",
+        "Engineering Manager · System Architecture · Cloud (AWS & Alibaba Cloud)",
       summary:
-        "Technical Lead and Senior System Engineer with 16+ years delivering enterprise software, SaaS platforms, AI solutions, and government digital transformation projects. Seven-plus years leading Agile/Scrum teams through full delivery lifecycles — architecture, cloud infrastructure, backend engineering, and stakeholder alignment. Certified Scrum Alliance professional (CSPO, CSM, A-CSD, CSD).",
+        "Technical Lead and Senior System Engineer with 16+ years delivering enterprise software, SaaS platforms, AI solutions, and government digital transformation projects across Japan and Bangladesh. Seven-plus years leading Agile/Scrum teams through full delivery lifecycles — architecture, cloud infrastructure, backend engineering, and stakeholder alignment. Certified Scrum Alliance professional (CSPO, CSM, A-CSD, CSD).",
       location: "Saitama, Japan",
       availabilityMessage:
         "Actively exploring Technical Lead, Engineering Manager, and Senior System Engineer roles.",
@@ -74,9 +74,9 @@ async function main() {
       title:
         "Technical Lead · Senior System Engineer · System Architecture · Cloud (AWS & Alibaba Cloud)",
       tagline:
-        "Engineering Manager delivering enterprise software, SaaS, and AI platforms across Japan and Bangladesh — with deep experience in system architecture and cloud (AWS & Alibaba Cloud).",
+        "Engineering Manager · System Architecture · Cloud (AWS & Alibaba Cloud)",
       summary:
-        "Technical Lead and Senior System Engineer with 16+ years delivering enterprise software, SaaS platforms, AI solutions, and government digital transformation projects. Seven-plus years leading Agile/Scrum teams through full delivery lifecycles — architecture, cloud infrastructure, backend engineering, and stakeholder alignment. Certified Scrum Alliance professional (CSPO, CSM, A-CSD, CSD).",
+        "Technical Lead and Senior System Engineer with 16+ years delivering enterprise software, SaaS platforms, AI solutions, and government digital transformation projects across Japan and Bangladesh. Seven-plus years leading Agile/Scrum teams through full delivery lifecycles — architecture, cloud infrastructure, backend engineering, and stakeholder alignment. Certified Scrum Alliance professional (CSPO, CSM, A-CSD, CSD).",
       location: "Saitama, Japan",
       email: "eather.ahmed@gmail.com",
       availabilityStatus: "open",
