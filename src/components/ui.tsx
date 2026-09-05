@@ -47,16 +47,14 @@ export function PageHero({
   label?: string;
 }) {
   return (
-    <div className="border-b border-[var(--port-border)] bg-[var(--ide-sidebar)] py-16 md:py-20">
+    <div className="border-b border-[var(--port-border)] bg-[var(--port-hero-gradient)] py-16 md:py-20">
       <div className="mx-auto max-w-6xl px-6">
         {label && <p className="section-label">{label}</p>}
         <h1 className="text-4xl font-bold tracking-tight text-[var(--port-fg)] md:text-5xl">
           {title}
         </h1>
         <p className="mt-4 max-w-3xl text-lg leading-relaxed text-[var(--port-muted)]">
-          <span className="syntax-comment">/** </span>
           {subtitle}
-          <span className="syntax-comment"> */</span>
         </p>
       </div>
     </div>

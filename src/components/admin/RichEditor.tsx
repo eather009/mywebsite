@@ -13,7 +13,12 @@ import CharacterCount from "@tiptap/extension-character-count";
 import { DOMParser as ProseMirrorDOMParser } from "@tiptap/pm/model";
 import { common, createLowlight } from "lowlight";
 import { tableExtensions, developerSkillsTableNode } from "@/lib/tiptap-table";
-import { looksLikeMarkdown, markdownToHtml } from "@/lib/markdown";
+import {
+  looksLikeHtmlSource,
+  looksLikeMarkdown,
+  markdownToHtml,
+  normalizePastedHtml,
+} from "@/lib/markdown";
 import {
   AlignCenter,
   AlignLeft,
@@ -116,14 +121,19 @@ export function RichEditor({ content, onChange, placeholder }: RichEditorProps) 
         const clipboard = event.clipboardData;
         if (!clipboard) return false;
 
-        // Prefer Markdown when plain text looks like MD (VS Code / Cursor often
-        // also put a useless HTML wrapper on the clipboard).
         const text = clipboard.getData("text/plain");
-        if (!text || !looksLikeMarkdown(text)) {
-          return false;
-        }
+        if (!text) return false;
 
-        const html = markdownToHtml(text);
+        // 1) HTML source pasted as text (<p>, <h2>, <code>, …)
+        // 2) Markdown (VS Code often also puts a useless HTML wrapper on the clipboard)
+        let html: string | null = null;
+        if (looksLikeHtmlSource(text)) {
+          html = normalizePastedHtml(text);
+        } else if (looksLikeMarkdown(text)) {
+          html = markdownToHtml(text);
+        }
+        if (!html) return false;
+
         const dom = document.createElement("div");
         dom.innerHTML = html;
         const slice = ProseMirrorDOMParser.fromSchema(view.state.schema).parseSlice(dom);
@@ -303,7 +313,7 @@ export function RichEditor({ content, onChange, placeholder }: RichEditorProps) 
       <div className="border-t border-slate-200 bg-slate-50 px-4 py-2 text-xs text-slate-500">
         {editor.storage.characterCount.characters()} characters ·{" "}
         {editor.storage.characterCount.words()} words
-        <span className="ml-2 text-slate-400">· Paste Markdown to auto-format</span>
+        <span className="ml-2 text-slate-400">· Paste Markdown or HTML to auto-format</span>
       </div>
     </div>
   );

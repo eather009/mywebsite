@@ -16,11 +16,11 @@ export default async function ContactPage() {
     <PageLayout>
       <PageHero
         title="Contact"
-        subtitle="Reach out via LinkedIn or email for professional inquiries and collaboration."
-        label="contact.tsx"
+        subtitle="Professional inquiries for Technical Lead, Engineering Manager, and Senior System Engineer roles."
+        label="Contact"
       />
 
-      <Section title="Get in Touch" label="async function connect">
+      <Section title="Get in Touch" label="Connect">
         <div className="mb-8">
           <AvailabilityBadge settings={settings} />
           <AvailabilityMessage settings={settings} />
@@ -39,11 +39,11 @@ export default async function ContactPage() {
                   <LinkedInIcon className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[var(--port-fg)]">LinkedIn — Primary Reference</h3>
+                  <h3 className="font-semibold text-[var(--port-fg)]">LinkedIn — Primary Channel</h3>
                   <p className="mt-1 text-sm text-[var(--port-muted)]">
-                    Connect for professional inquiries, references, and career opportunities.
+                    Best for professional inquiries, references, and opportunities.
                   </p>
-                  <p className="mt-2 text-sm text-[var(--ide-accent)]">linkedin.com/in/iftekhareather</p>
+                  <p className="mt-2 text-sm text-[var(--port-accent)]">linkedin.com/in/iftekhareather</p>
                 </div>
               </a>
             </Card>
@@ -53,20 +53,22 @@ export default async function ContactPage() {
                 href={`mailto:${siteConfig.email}`}
                 className="flex items-start gap-4 transition hover:opacity-90"
               >
-                <div className="rounded bg-[var(--ide-panel)] p-3 ring-1 ring-[var(--ide-border)]">
-                  <Mail className="h-6 w-6 text-[var(--ide-accent)]" />
+                <div className="rounded bg-[var(--port-panel)] p-3 ring-1 ring-[var(--port-border)]">
+                  <Mail className="h-6 w-6 text-[var(--port-accent)]" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--port-fg)]">Email</h3>
-                  <p className="mt-1 text-sm text-[var(--port-muted)]">For direct inquiries and collaboration.</p>
-                  <p className="mt-2 text-sm text-[var(--ide-accent)]">{siteConfig.email}</p>
+                  <p className="mt-1 text-sm text-[var(--port-muted)]">
+                    For direct inquiries and collaboration.
+                  </p>
+                  <p className="mt-2 text-sm text-[var(--port-accent)]">{siteConfig.email}</p>
                 </div>
               </a>
             </Card>
 
             <Card>
               <div className="flex items-start gap-4">
-                <div className="rounded bg-[var(--ide-panel)] p-3 ring-1 ring-[var(--ide-border)]">
+                <div className="rounded bg-[var(--port-panel)] p-3 ring-1 ring-[var(--port-border)]">
                   <MapPin className="h-6 w-6 text-[var(--ide-type)]" />
                 </div>
                 <div>
@@ -82,17 +84,17 @@ export default async function ContactPage() {
 
           <div>
             <Card>
-              <MessageSquare className="h-6 w-6 text-[var(--ide-accent)]" />
-              <h3 className="mt-4 text-lg font-semibold text-[var(--port-fg)]">For Recruiting Agencies</h3>
+              <MessageSquare className="h-6 w-6 text-[var(--port-accent)]" />
+              <h3 className="mt-4 text-lg font-semibold text-[var(--port-fg)]">For Recruiters</h3>
               <p className="mt-3 text-sm leading-relaxed text-[var(--port-muted)]">
-                My LinkedIn profile includes detailed experience, certifications, and peer
-                recommendations. Availability status above is kept current via the admin portal.
+                LinkedIn has full experience, certifications, and recommendations. Availability
+                above is maintained via the admin portal.
               </p>
               <ul className="mt-4 space-y-2 text-sm text-[var(--port-muted)]">
-                <li><span className="syntax-comment">→</span> Team Lead / Engineering Manager roles</li>
-                <li><span className="syntax-comment">→</span> Senior Backend Engineer (PHP, Laravel, Node.js)</li>
-                <li><span className="syntax-comment">→</span> Technical Project Manager / Scrum Master</li>
-                <li><span className="syntax-comment">→</span> Full-time and contract opportunities</li>
+                <li>· Technical Lead / Engineering Manager</li>
+                <li>· Senior System Engineer · System Architecture</li>
+                <li>· Cloud (AWS & Alibaba Cloud) · Backend / Full-Stack</li>
+                <li>· Full-time and contract opportunities</li>
               </ul>
               <ButtonPrimary
                 href={siteConfig.linkedin}
@@ -106,13 +108,11 @@ export default async function ContactPage() {
             </Card>
 
             <div className="mt-6 space-y-4">
-              <h3 className="text-xs uppercase tracking-widest text-[var(--ide-comment)]">
-                // linkedin_recommendations
-              </h3>
+              <h3 className="section-label">LinkedIn Recommendations</h3>
               {recommendations.map((rec) => (
                 <Card key={rec.name}>
                   <p className="text-sm italic text-[var(--port-muted)]">
-                    &ldquo;{rec.quote.slice(0, 120)}...&rdquo;
+                    &ldquo;{rec.quote.slice(0, 140)}…&rdquo;
                   </p>
                   <p className="mt-2 text-sm font-medium text-[var(--port-fg)]">— {rec.name}</p>
                 </Card>
