@@ -11,7 +11,7 @@ export const AVAILABILITY_PRESETS: Record<
   },
   selective: {
     label: "Selectively open",
-    description: "Open to the right role — reach out with details.",
+    description: "Open to the right role - reach out with details.",
     tone: "info",
   },
   not_looking: {

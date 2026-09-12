@@ -17,7 +17,7 @@ function resolveAppRoot(): string | null {
 
 /**
  * Persistent upload directory. Nginx/Apache serve /uploads from app-root public/uploads.
- * PM2 standalone cwd is .next/standalone — never write only there.
+ * PM2 standalone cwd is .next/standalone - never write only there.
  */
 export function getUploadsDir(): string {
   if (process.env.UPLOAD_DIR) {

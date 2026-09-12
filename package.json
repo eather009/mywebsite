@@ -23,6 +23,7 @@
     "db:studio": "npx prisma studio",
     "db:up": "docker compose up -d mysql",
     "db:setup": "docker compose up -d mysql && npx prisma migrate deploy && npx tsx prisma/seed.ts",
+    "sync:linkedin": "node scripts/sync-linkedin-profile.mjs",
     "postinstall": "npx prisma generate"
   },
   "prisma": {

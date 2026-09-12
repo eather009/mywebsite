@@ -69,7 +69,7 @@ export function BlogShare({ url, title, description }: BlogShareProps) {
   const [copied, setCopied] = useState(false);
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
-  const encodedText = encodeURIComponent(description ? `${title} — ${description}` : title);
+  const encodedText = encodeURIComponent(description ? `${title} - ${description}` : title);
 
   async function copyLink() {
     try {

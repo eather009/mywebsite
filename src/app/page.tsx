@@ -18,6 +18,7 @@ import {
   featuredProjects,
   recommendations,
   skills,
+  focusAreas,
 } from "@/lib/data";
 import { getPublishedPosts, getSiteSettings } from "@/lib/content";
 import { getSiteConfig } from "@/lib/site-config";
@@ -43,9 +44,17 @@ export default async function HomePage() {
           <p className="portfolio-greeting mt-6">Engineering Manager · Export Japan Inc.</p>
           <h1 className="portfolio-name">{siteConfig.name}</h1>
           <p className="portfolio-role">{siteConfig.title}</p>
-          <p className="portfolio-intro mt-6 text-lg leading-relaxed text-[var(--port-muted)]">
+          <p className="portfolio-intro mt-6 leading-relaxed text-[var(--port-muted)]">
             {siteConfig.summary}
           </p>
+
+          <div className="portfolio-focus" aria-label="Focus areas">
+            {focusAreas.map((area) => (
+              <span key={area} className="portfolio-focus-chip">
+                {area}
+              </span>
+            ))}
+          </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <ButtonPrimary
@@ -62,7 +71,7 @@ export default async function HomePage() {
             </ButtonSecondary>
           </div>
 
-          <div className="mt-6 flex items-center gap-2 text-sm text-[var(--port-muted)]">
+          <div className="mt-6 flex items-center gap-2 text-base text-[var(--port-muted)]">
             <MapPin className="h-4 w-4 text-[var(--port-accent)]" aria-hidden="true" />
             {siteConfig.location}
           </div>
@@ -71,7 +80,7 @@ export default async function HomePage() {
 
       <Section
         id="recruiters"
-        label="01 — Overview"
+        label="01 - Overview"
         title="For Recruiters & Hiring Managers"
         subtitle="Technical leadership, system architecture, and cloud delivery for enterprise and SaaS platforms."
       >
@@ -86,24 +95,24 @@ export default async function HomePage() {
         <div className="grid gap-6 md:grid-cols-3">
           <Card>
             <Briefcase className="h-8 w-8 text-[var(--port-accent)]" aria-hidden="true" />
-            <h3 className="mt-4 text-lg font-semibold text-[var(--port-fg)]">Technical Leadership</h3>
-            <p className="mt-2 text-sm leading-relaxed text-[var(--port-muted)]">
-              Engineering Manager at Export Japan Inc. — leading cross-functional Scrum teams,
+            <h3 className="mt-4 text-xl font-semibold text-[var(--port-fg)]">Technical Leadership</h3>
+            <p className="mt-2 leading-relaxed text-[var(--port-muted)]">
+              Engineering Manager at Export Japan Inc., leading cross-functional Scrum teams,
               code reviews, delivery governance, and stakeholder alignment.
             </p>
           </Card>
           <Card>
             <Cloud className="h-8 w-8 text-[var(--port-accent)]" aria-hidden="true" />
-            <h3 className="mt-4 text-lg font-semibold text-[var(--port-fg)]">System Architecture & Cloud</h3>
-            <p className="mt-2 text-sm leading-relaxed text-[var(--port-muted)]">
+            <h3 className="mt-4 text-xl font-semibold text-[var(--port-fg)]">System Architecture & Cloud</h3>
+            <p className="mt-2 leading-relaxed text-[var(--port-muted)]">
               Designing secure, scalable architectures on AWS and Alibaba Cloud for high-traffic
               tourism and enterprise platforms.
             </p>
           </Card>
           <Card>
             <Award className="h-8 w-8 text-[var(--port-accent)]" aria-hidden="true" />
-            <h3 className="mt-4 text-lg font-semibold text-[var(--port-fg)]">Certified Agile Leader</h3>
-            <p className="mt-2 text-sm leading-relaxed text-[var(--port-muted)]">
+            <h3 className="mt-4 text-xl font-semibold text-[var(--port-fg)]">Certified Agile Leader</h3>
+            <p className="mt-2 leading-relaxed text-[var(--port-muted)]">
               CSPO, CSM, A-CSD, and CSD certified. Proven track record improving sprint
               predictability, release quality, and engineering practices.
             </p>
@@ -112,7 +121,7 @@ export default async function HomePage() {
       </Section>
 
       <Section
-        label="02 — Experience"
+        label="02 - Experience"
         title="Recent Experience"
         subtitle="Leadership and system engineering roles across Japan and Bangladesh."
         className="bg-[var(--port-panel)]"
@@ -122,10 +131,10 @@ export default async function HomePage() {
             <Card key={`${job.company}-${job.role}-${job.period}`}>
               <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
                 <div>
-                  <h3 className="text-lg font-semibold text-[var(--port-fg)]">{job.role}</h3>
+                  <h3 className="text-xl font-semibold text-[var(--port-fg)]">{job.role}</h3>
                   <p className="font-medium text-[var(--port-accent)]">{job.company}</p>
                 </div>
-                <div className="text-sm text-[var(--port-muted)]">
+                <div className="text-base text-[var(--port-muted)]">
                   <p>{job.period}</p>
                   <p>{job.location}</p>
                 </div>
@@ -134,7 +143,7 @@ export default async function HomePage() {
                 {job.highlights.slice(0, 2).map((item) => (
                   <li
                     key={item}
-                    className="flex gap-2 text-sm text-[var(--port-muted)] before:mt-2 before:h-1.5 before:w-1.5 before:shrink-0 before:rounded-full before:bg-[var(--port-accent)] before:content-['']"
+                    className="flex gap-2 text-base leading-relaxed text-[var(--port-muted)] before:mt-2.5 before:h-1.5 before:w-1.5 before:shrink-0 before:rounded-full before:bg-[var(--port-accent)] before:content-['']"
                   >
                     {item}
                   </li>
@@ -145,21 +154,21 @@ export default async function HomePage() {
         </div>
         <Link
           href="/experience"
-          className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[var(--port-accent)] hover:text-[var(--port-accent-hover)]"
+          className="mt-8 inline-flex items-center gap-2 text-base font-semibold text-[var(--port-accent)] hover:text-[var(--port-accent-hover)]"
         >
           View full experience <ArrowRight className="h-4 w-4" />
         </Link>
       </Section>
 
       <Section
-        label="03 — Portfolio"
+        label="03 - Portfolio"
         title="Portfolio Highlights"
-        subtitle="Architecture-led platforms across tourism, AI SaaS, and enterprise systems."
+        subtitle="Architecture-led platforms across e-governance, AI SaaS, and enterprise systems."
       >
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2">
           {featuredProjects.map((project) => (
             <Card key={project.name}>
-              <h3 className="text-lg font-semibold text-[var(--port-fg)]">
+              <h3 className="text-xl font-semibold text-[var(--port-fg)]">
                 <a
                   href={project.url}
                   target="_blank"
@@ -169,7 +178,7 @@ export default async function HomePage() {
                   {project.name}
                 </a>
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-[var(--port-muted)]">
+              <p className="mt-3 leading-relaxed text-[var(--port-muted)]">
                 {project.description}
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
@@ -182,51 +191,56 @@ export default async function HomePage() {
         </div>
         <Link
           href="/projects"
-          className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[var(--port-accent)] hover:text-[var(--port-accent-hover)]"
+          className="mt-8 inline-flex items-center gap-2 text-base font-semibold text-[var(--port-accent)] hover:text-[var(--port-accent-hover)]"
         >
           View all projects <ArrowRight className="h-4 w-4" />
         </Link>
       </Section>
 
       <Section
-        label="04 — Skills"
+        label="04 - Skills"
         title="Skills & Expertise"
         subtitle="Leadership, system architecture, cloud, and full-stack engineering."
         className="bg-[var(--port-panel)]"
       >
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-8 md:grid-cols-2">
           {skills.map((group) => (
-            <Card key={group.category}>
-              <h3 className="font-semibold text-[var(--port-fg)]">{group.category}</h3>
-              <div className="mt-4 flex flex-wrap gap-2">
+            <div key={group.category}>
+              <h3 className="text-lg font-semibold text-[var(--port-fg)]">{group.category}</h3>
+              <ul className="mt-4 space-y-2">
                 {group.items.map((item) => (
-                  <Badge key={item}>{item}</Badge>
+                  <li
+                    key={item}
+                    className="flex gap-3 text-base text-[var(--port-muted)] before:mt-2.5 before:h-1.5 before:w-1.5 before:shrink-0 before:rounded-full before:bg-[var(--port-accent)] before:content-['']"
+                  >
+                    {item}
+                  </li>
                 ))}
-              </div>
-            </Card>
+              </ul>
+            </div>
           ))}
         </div>
       </Section>
 
       <Section
-        label="05 — Recommendations"
+        label="05 - Recommendations"
         title="LinkedIn Recommendations"
         subtitle="Feedback from colleagues on leadership, architecture, and delivery."
       >
         <div className="grid gap-6 md:grid-cols-2">
           {recommendations.map((rec) => (
             <Card key={rec.name}>
-              <p className="text-sm italic leading-relaxed text-[var(--port-muted)]">
+              <p className="text-base italic leading-relaxed text-[var(--port-muted)]">
                 &ldquo;{rec.quote}&rdquo;
               </p>
               <div className="mt-4 border-t border-[var(--port-border)] pt-4">
                 <p className="font-semibold text-[var(--port-fg)]">{rec.name}</p>
-                <p className="text-sm text-[var(--port-muted)]">{rec.title}</p>
+                <p className="text-base text-[var(--port-muted)]">{rec.title}</p>
                 <a
                   href={rec.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-2 inline-flex items-center gap-1 text-sm text-[var(--port-accent)] hover:text-[var(--port-accent-hover)]"
+                  className="mt-2 inline-flex items-center gap-1 text-base text-[var(--port-accent)] hover:text-[var(--port-accent-hover)]"
                 >
                   <LinkedInIcon className="h-3 w-3" /> View on LinkedIn
                 </a>
@@ -237,7 +251,7 @@ export default async function HomePage() {
       </Section>
 
       <Section
-        label="06 — Credentials"
+        label="06 - Credentials"
         title="Certifications"
         subtitle="Scrum Alliance credentials validating agile leadership."
         className="bg-[var(--port-panel)]"
@@ -263,7 +277,7 @@ export default async function HomePage() {
 
       {posts.length > 0 && (
         <Section
-          label="07 — Blog"
+          label="07 - Blog"
           title="Latest from the Blog"
           subtitle="Notes on engineering leadership, cloud, and delivery."
         >

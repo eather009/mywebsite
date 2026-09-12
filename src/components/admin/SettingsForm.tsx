@@ -149,7 +149,7 @@ export function SettingsForm({ initial }: { initial: SiteSettingsData }) {
           </div>
           <div className="sm:col-span-2">
             <label htmlFor="tagline" className="block text-sm font-medium text-slate-700">
-              Tagline (short — header/footer)
+              Tagline (short - header/footer)
             </label>
             <input
               id="tagline"
@@ -242,7 +242,7 @@ export function SettingsForm({ initial }: { initial: SiteSettingsData }) {
           {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
           Save Settings
         </button>
-        {saved && <span className="text-sm text-green-600">Saved — changes are live immediately</span>}
+        {saved && <span className="text-sm text-green-600">Saved - changes are live immediately</span>}
         {error && <span className="text-sm text-red-600">{error}</span>}
       </div>
     </form>
