@@ -41,7 +41,7 @@ export default async function HomePage() {
           <AvailabilityBadge settings={settings} />
           <AvailabilityMessage settings={settings} />
 
-          <p className="portfolio-greeting mt-6">Engineering Manager · Export Japan Inc.</p>
+          <p className="portfolio-greeting mt-6">Team Lead/Manager · Export Japan Inc.</p>
           <h1 className="portfolio-name">{siteConfig.name}</h1>
           <p className="portfolio-role">{siteConfig.title}</p>
           <p className="portfolio-intro mt-6 leading-relaxed text-[var(--port-muted)]">
