@@ -39,7 +39,7 @@ export default async function ContactPage() {
                   <LinkedInIcon className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[var(--port-fg)]">LinkedIn — Primary Channel</h3>
+                  <h3 className="font-semibold text-[var(--port-fg)]">LinkedIn - Primary Channel</h3>
                   <p className="mt-1 text-sm text-[var(--port-muted)]">
                     Best for professional inquiries, references, and opportunities.
                   </p>
@@ -114,7 +114,7 @@ export default async function ContactPage() {
                   <p className="text-sm italic text-[var(--port-muted)]">
                     &ldquo;{rec.quote.slice(0, 140)}…&rdquo;
                   </p>
-                  <p className="mt-2 text-sm font-medium text-[var(--port-fg)]">— {rec.name}</p>
+                  <p className="mt-2 text-sm font-medium text-[var(--port-fg)]">- {rec.name}</p>
                 </Card>
               ))}
             </div>

@@ -1,36 +1,24 @@
+import { linkedInGenerated } from "./linkedin-generated";
+
+const li = linkedInGenerated;
+
 export const siteConfig = {
   name: "Iftekhar Ahmed Eather",
   shortName: "Iftekhar Eather",
-  title:
-    "Technical Lead · Senior System Engineer · System Architecture · Cloud (AWS & Alibaba Cloud)",
+  title: li.siteConfig.title,
   domain: "https://www.eatherahmed.com",
   email: "eather.ahmed@gmail.com",
-  location: "Saitama, Japan",
+  location: li.siteConfig.location,
   linkedin: "https://www.linkedin.com/in/iftekhareather/",
   github: "https://github.com/eather009",
   twitter: "https://twitter.com/IftekharEather",
-  tagline:
-    "Engineering Manager · System Architecture · Cloud (AWS & Alibaba Cloud)",
-  summary:
-    "Technical Lead and Senior System Engineer with 16+ years delivering enterprise software, SaaS platforms, AI solutions, and government digital transformation projects across Japan and Bangladesh. Seven-plus years leading Agile/Scrum teams through full delivery lifecycles — architecture, cloud infrastructure, backend engineering, and stakeholder alignment. Certified Scrum Alliance professional (CSPO, CSM, A-CSD, CSD).",
+  tagline: li.siteConfig.tagline,
+  summary: li.siteConfig.summary,
 };
 
-export const focusAreas = [
-  "Technical Lead",
-  "Senior System Engineer",
-  "System Architecture",
-  "AWS",
-  "Alibaba Cloud",
-  "Backend & Full-Stack",
-  "AI & SaaS",
-];
+export const focusAreas = [...li.focusAreas];
 
-export const stats = [
-  { label: "Years Experience", value: "16+" },
-  { label: "Teams Led", value: "10+" },
-  { label: "Certifications", value: "4" },
-  { label: "Projects Delivered", value: "20+" },
-];
+export const stats = li.stats.map((s) => ({ label: s.label, value: s.value }));
 
 export const certifications = [
   {
@@ -59,62 +47,24 @@ export const certifications = [
   },
 ];
 
-export const skills = [
-  {
-    category: "Leadership & Delivery",
-    items: [
-      "Technical Lead",
-      "Engineering Management",
-      "Agile / Scrum",
-      "Stakeholder Management",
-      "Roadmap & Release Strategy",
-      "Cross-functional Teams",
-    ],
-  },
-  {
-    category: "System Architecture & Cloud",
-    items: [
-      "System Architecture",
-      "AWS",
-      "Alibaba Cloud (Aliyun)",
-      "Site Reliability Engineering",
-      "Linux",
-      "CI/CD",
-      "Infrastructure Design",
-      "Terraform",
-    ],
-  },
-  {
-    category: "Backend & Full-Stack",
-    items: ["Laravel", "PHP", "Python", "FastAPI", "Node.js", "MySQL", "Vue.js", "WordPress"],
-  },
-  {
-    category: "AI & SaaS",
-    items: [
-      "RAG Architecture",
-      "Vector Databases",
-      "Agentic AI",
-      "SaaS / Multi-tenant",
-      "Docker",
-      "WebSockets",
-      "OCR Workflows",
-    ],
-  },
-];
+export const skills = li.skills.map((group) => ({
+  category: group.category,
+  items: [...group.items],
+}));
 
 export const experience = [
   {
     company: "Export Japan Inc.",
-    role: "Engineering Manager",
+    role: "Team Lead/Manager",
     period: "Jul 2023 – Present",
     location: "Tokyo, Japan",
     url: "https://www.linkedin.com/company/export-japan-inc-/",
     highlights: [
       "Lead cross-functional Scrum teams (~10 engineers, designers, QA, and stakeholders) delivering enterprise SaaS, AI, and multilingual tourism platforms.",
-      "Drive project scoping, budget estimation, and delivery for large-scale platforms including Kyoto.travel.",
+      "Drive project scoping, budget estimation, and delivery for enterprise SaaS, AI, and multilingual tourism platforms.",
       "Design secure, scalable architectures across AWS and Alibaba Cloud (dev, staging, production).",
       "Facilitate agile ceremonies; conduct code reviews; mentor system engineers and developers.",
-      "Contribute backend architecture, API development, and system integration for high-traffic tourism applications.",
+      "Contribute backend architecture, API development, and system integration for high-traffic applications.",
     ],
   },
   {
@@ -135,8 +85,8 @@ export const experience = [
     period: "Sep 2015 – Jan 2019",
     location: "Dhaka, Bangladesh",
     highlights: [
-      "Led government and international projects for A2i, Ministry of Finance, and e-learning initiatives.",
-      "Managed development teams using Scrum; delivered E-File, SEIP, TMS, SCS, HSS, PHR, Finman, and Niyog.",
+      "Led government and international projects for A2I, Ministry of Finance, and e-learning initiatives.",
+      "Managed Scrum delivery for major e-governance programs including D-Nothi / E-File, SEIP, TMS, SCS, HSS, PHR, Finman, and Niyog.",
       "Oversaw system design, technical planning, and developer mentoring for Bangladesh Government clients.",
     ],
   },
@@ -168,37 +118,30 @@ export const projects = [
   {
     name: "EXJ AI Chatbot",
     description:
-      "AI-powered customer support SaaS for Export Japan Inc. Indexes website content into a vector database and answers visitor questions with RAG — multi-language Q&A, embeddable widget, usage analytics, and secure origin validation. Built with FastAPI and Docker.",
+      "AI-powered customer support SaaS for Export Japan Inc. Indexes website content into a vector database and answers visitor questions with RAG: multi-language Q&A, embeddable widget, usage analytics, and secure origin validation. Built with FastAPI and Docker.",
     tags: ["RAG", "Vector DB", "FastAPI", "Docker", "Python", "SaaS", "AI"],
     url: "https://chatbot.export-japan.com/",
   },
   {
     name: "DonateSync Community Hub",
     description:
-      "Multi-tenant SaaS for nonprofits, clubs, and member organizations — memberships, donations and dues, event RSVPs, OCR receipt workflows, email and in-app notifications, and an optional member portal with financial transparency.",
+      "Multi-tenant SaaS for nonprofits, clubs, and member organizations: memberships, donations and dues, event RSVPs, OCR receipt workflows, email and in-app notifications, and an optional member portal with financial transparency.",
     tags: ["SaaS", "Multi-tenant", "OCR", "Member Portal", "Architecture"],
     url: "https://donatesync.com/",
   },
   {
     name: "BINGO",
     description:
-      "Real-time multiplayer bingo for parties and events. Hosts share a QR code or link; up to 200 players join from any browser with live WebSocket sync, auto winner detection, and host controls — no app download required.",
+      "Real-time multiplayer bingo for parties and events. Hosts share a QR code or link; up to 200 players join from any browser with live WebSocket sync, auto winner detection, and host controls. No app download required.",
     tags: ["WebSockets", "Real-time", "Node.js", "SaaS", "Multiplayer"],
     url: "https://bingo.eatherahmed.com/",
   },
   {
-    name: "Kyoto.travel",
+    name: "D-Nothi / E-File & Government Platforms",
     description:
-      "Major tourism information platform serving international visitors. Led system restructuring, cloud architecture (AWS/Aliyun), and agile delivery for high-traffic multilingual content.",
-    tags: ["System Architecture", "AWS", "Alibaba Cloud", "Technical Lead"],
-    url: "https://www.kyoto.travel/",
-  },
-  {
-    name: "Government Digital Platforms",
-    description:
-      "Suite of e-governance and e-learning systems including E-File, SEIP, TMS, and Finman for Bangladesh Government and international clients.",
-    tags: ["Project Management", "Scrum", "E-Governance"],
-    url: "https://www.linkedin.com/in/iftekhareather/",
+      "Nationwide digital filing platform (D-Nothi; v1 as E-File) for a2i / ICT Division, plus related Bangladesh Government e-governance and e-learning programs including SEIP, TMS, and Finman. Secure, transparent document workflows at national scale (17K+ govt. offices, 2.5 lac+ users, 300M+ decisions).",
+    tags: ["E-Governance", "Project Management", "Agile", "A2I", "Scrum"],
+    url: "https://portal.nothi.gov.bd/Highlights.html",
   },
   {
     name: "Core4VoIP & AccounticaXL",
@@ -224,7 +167,7 @@ export const projects = [
 ];
 
 export const featuredProjectNames = [
-  "Kyoto.travel",
+  "D-Nothi / E-File & Government Platforms",
   "EXJ AI Chatbot",
   "DonateSync Community Hub",
   "Tourism & Travel Platforms",
@@ -234,22 +177,12 @@ export const featuredProjects = featuredProjectNames
   .map((name) => projects.find((project) => project.name === name))
   .filter((project): project is (typeof projects)[number] => project !== undefined);
 
-export const recommendations = [
-  {
-    name: "Mizanur Rahman",
-    title: "Colleague",
-    quote:
-      "Iftekhar is a fast learner and a genuinely hardworking professional. His attention to detail, curiosity, and appetite to learn consistently impressed me. A certified Agile and Scrum professional, Iftekhar communicates with real clarity and has proven himself a dependable team player. He would be a valuable addition to any engineering team, and I recommend him without hesitation.",
-    linkedin: "https://www.linkedin.com/in/mizan",
-  },
-  {
-    name: "Mohammad Hasan Tareq",
-    title: "Former Colleague",
-    quote:
-      "Beyond his strong skills in system engineering, cloud solutions, and project management, Iftekhar was always ready to step up and help anyone facing a challenge. I strongly recommend Iftekhar to any organization looking for an outstanding leader and system architect.",
-    linkedin: "https://www.linkedin.com/in/hsntareq",
-  },
-];
+export const recommendations = li.recommendations.map((rec) => ({
+  name: rec.name,
+  title: rec.title,
+  quote: rec.quote,
+  linkedin: rec.linkedin,
+}));
 
 export const navLinks = [
   { href: "/", label: "Home" },

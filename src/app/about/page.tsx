@@ -27,13 +27,14 @@ export default async function AboutPage() {
             <p>{siteConfig.summary}</p>
             <p>
               At Export Japan Inc., I lead architecture, cloud infrastructure, and agile delivery
-              for tourism digital platforms including Kyoto.travel.
+              for enterprise SaaS, AI, and multilingual tourism platforms.
             </p>
             <p>
-              Previously I was Project Manager at Tappware Solutions (government e-governance
-              systems) and Senior Software Engineer at Divine IT (enterprise VoIP billing and
-              accounting platforms). I hold CSPO, CSM, A-CSD, and CSD certifications and was
-              recognized as a CakePHP 3.5.0 contributor.
+              Previously I was Project Manager at Tappware Solutions, delivering Bangladesh
+              Government e-governance programs including D-Nothi / E-File and related digital
+              transformation systems, and Senior Software Engineer at Divine IT (enterprise VoIP
+              billing and accounting platforms). I hold CSPO, CSM, A-CSD, and CSD certifications
+              and was recognized as a CakePHP 3.5.0 contributor.
             </p>
           </div>
 

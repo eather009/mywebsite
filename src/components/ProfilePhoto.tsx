@@ -12,7 +12,7 @@ export function ProfilePhoto({ className = "" }: { className?: string }) {
       <div className="profile-photo-frame">
         <Image
           src={PROFILE_SRC}
-          alt="Iftekhar Ahmed Eather — Team Lead and System Engineer"
+          alt="Iftekhar Ahmed Eather - Team Lead and System Engineer"
           width={852}
           height={1272}
           priority

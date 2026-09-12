@@ -40,7 +40,7 @@ export async function POST(request: Request) {
     const uploadDir = getUploadsDir();
     console.error("Upload failed:", err, { uploadDir, cwd: process.cwd() });
     return NextResponse.json(
-      { error: "Upload failed — check server logs and public/uploads permissions" },
+      { error: "Upload failed - check server logs and public/uploads permissions" },
       { status: 500 }
     );
   }
