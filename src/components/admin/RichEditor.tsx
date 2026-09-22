@@ -11,19 +11,16 @@ import Highlight from "@tiptap/extension-highlight";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import CharacterCount from "@tiptap/extension-character-count";
 import { DOMParser as ProseMirrorDOMParser } from "@tiptap/pm/model";
+import type { EditorView } from "@tiptap/pm/view";
 import { common, createLowlight } from "lowlight";
 import { tableExtensions, developerSkillsTableNode } from "@/lib/tiptap-table";
-import {
-  looksLikeHtmlSource,
-  looksLikeMarkdown,
-  markdownToHtml,
-  normalizePastedHtml,
-} from "@/lib/markdown";
+import { resolvePasteContent } from "@/lib/editor-paste";
 import {
   AlignCenter,
   AlignLeft,
   AlignRight,
   Bold,
+  Braces,
   Code,
   Eraser,
   Heading1,
@@ -47,6 +44,7 @@ import {
 import { useCallback, useEffect, useRef } from "react";
 
 const lowlight = createLowlight(common);
+const ON_CHANGE_DEBOUNCE_MS = 120;
 
 type RichEditorProps = {
   content: string;
@@ -72,6 +70,8 @@ function ToolbarButton({
       type="button"
       title={title}
       disabled={disabled}
+      // Keep editor selection when clicking the toolbar (TipTap classic fix).
+      onMouseDown={(e) => e.preventDefault()}
       onClick={onClick}
       className={`rounded-md p-2 transition ${
         active
@@ -84,8 +84,18 @@ function ToolbarButton({
   );
 }
 
+function insertHtmlSlice(view: EditorView, html: string) {
+  const dom = document.createElement("div");
+  dom.innerHTML = html;
+  const slice = ProseMirrorDOMParser.fromSchema(view.state.schema).parseSlice(dom);
+  view.dispatch(
+    view.state.tr.replaceSelection(slice).scrollIntoView().setMeta("paste", true)
+  );
+}
+
 export function RichEditor({ content, onChange, placeholder }: RichEditorProps) {
   const lastEmittedRef = useRef(content);
+  const onChangeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const editor = useEditor({
     immediatelyRender: false,
@@ -115,41 +125,39 @@ export function RichEditor({ content, onChange, placeholder }: RichEditorProps) 
     editorProps: {
       attributes: {
         class:
-          "prose-editor min-h-[420px] max-w-none px-6 py-5 focus:outline-none",
+          "prose-editor ProseMirror min-h-[420px] max-w-none px-6 py-5 focus:outline-none",
       },
       handlePaste(view, event) {
         const clipboard = event.clipboardData;
         if (!clipboard) return false;
 
-        const text = clipboard.getData("text/plain");
-        if (!text) return false;
+        const resolved = resolvePasteContent(clipboard);
+        if (resolved.kind === "skip") return false;
 
-        // 1) HTML source pasted as text (<p>, <h2>, <code>, …)
-        // 2) Markdown (VS Code often also puts a useless HTML wrapper on the clipboard)
-        let html: string | null = null;
-        if (looksLikeHtmlSource(text)) {
-          html = normalizePastedHtml(text);
-        } else if (looksLikeMarkdown(text)) {
-          html = markdownToHtml(text);
-        }
-        if (!html) return false;
-
-        const dom = document.createElement("div");
-        dom.innerHTML = html;
-        const slice = ProseMirrorDOMParser.fromSchema(view.state.schema).parseSlice(dom);
-
-        view.dispatch(
-          view.state.tr.replaceSelection(slice).scrollIntoView().setMeta("paste", true)
-        );
+        event.preventDefault();
+        insertHtmlSlice(view, resolved.html);
         return true;
       },
     },
     onUpdate: ({ editor: ed }) => {
       const json = JSON.stringify(ed.getJSON());
       lastEmittedRef.current = json;
-      onChange(json);
+      if (onChangeTimerRef.current) clearTimeout(onChangeTimerRef.current);
+      onChangeTimerRef.current = setTimeout(() => {
+        onChange(json);
+      }, ON_CHANGE_DEBOUNCE_MS);
     },
   });
+
+  useEffect(() => {
+    return () => {
+      if (onChangeTimerRef.current) {
+        clearTimeout(onChangeTimerRef.current);
+        // Flush last JSON so Save does not miss recent keystrokes.
+        onChange(lastEmittedRef.current);
+      }
+    };
+  }, [onChange]);
 
   useEffect(() => {
     if (!editor || !content) return;
@@ -231,7 +239,11 @@ export function RichEditor({ content, onChange, placeholder }: RichEditorProps) 
         <ToolbarButton onClick={() => editor.chain().focus().toggleHighlight().run()} active={editor.isActive("highlight")} title="Highlight">
           <Highlighter className={iconClass} />
         </ToolbarButton>
-        <ToolbarButton onClick={() => editor.chain().focus().toggleCode().run()} active={editor.isActive("code")} title="Inline code">
+        <ToolbarButton
+          onClick={() => editor.chain().focus().toggleCode().run()}
+          active={editor.isActive("code")}
+          title="Inline code"
+        >
           <Code className={iconClass} />
         </ToolbarButton>
 
@@ -261,8 +273,12 @@ export function RichEditor({ content, onChange, placeholder }: RichEditorProps) 
         <ToolbarButton onClick={() => editor.chain().focus().toggleBlockquote().run()} active={editor.isActive("blockquote")} title="Quote">
           <Quote className={iconClass} />
         </ToolbarButton>
-        <ToolbarButton onClick={() => editor.chain().focus().toggleCodeBlock().run()} active={editor.isActive("codeBlock")} title="Code block">
-          <Code className={iconClass} />
+        <ToolbarButton
+          onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+          active={editor.isActive("codeBlock")}
+          title="Code block"
+        >
+          <Braces className={iconClass} />
         </ToolbarButton>
         <ToolbarButton onClick={() => editor.chain().focus().setHorizontalRule().run()} title="Horizontal rule">
           <Minus className={iconClass} />
@@ -313,7 +329,9 @@ export function RichEditor({ content, onChange, placeholder }: RichEditorProps) 
       <div className="border-t border-slate-200 bg-slate-50 px-4 py-2 text-xs text-slate-500">
         {editor.storage.characterCount.characters()} characters ·{" "}
         {editor.storage.characterCount.words()} words
-        <span className="ml-2 text-slate-400">· Paste Markdown or HTML to auto-format</span>
+        <span className="ml-2 text-slate-400">
+          · Paste from Docs / Gemini / Markdown auto-formats
+        </span>
       </div>
     </div>
   );
