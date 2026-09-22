@@ -572,9 +572,73 @@ body {
   background: color-mix(in srgb, var(--ide-panel) 50%, transparent);
 }
 
-.prose-editor h1, .prose-editor h2, .prose-editor h3 { color: var(--port-fg); }
-.prose-editor p { color: var(--port-muted); line-height: 1.75; }
+.prose-editor h1,
+.prose-editor h2,
+.prose-editor h3 {
+  color: var(--port-fg);
+  font-weight: 700;
+  line-height: 1.3;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose-editor h1 { font-size: 1.875rem; }
+.prose-editor h2 { font-size: 1.5rem; }
+.prose-editor h3 { font-size: 1.25rem; }
+
+.prose-editor p {
+  color: var(--port-muted);
+  line-height: 1.75;
+  margin: 0.5rem 0;
+}
+
 .prose-editor a { color: var(--ide-accent); }
+
+.prose-editor ul,
+.prose-editor ol {
+  margin: 0.75rem 0;
+  padding-left: 1.5rem;
+  color: var(--port-muted);
+}
+
+.prose-editor ul { list-style-type: disc; }
+.prose-editor ol { list-style-type: decimal; }
+
+.prose-editor li { margin: 0.25rem 0; }
+
+.prose-editor blockquote {
+  border-left: 3px solid var(--ide-accent);
+  margin: 1rem 0;
+  padding-left: 1rem;
+  color: var(--port-muted);
+  font-style: italic;
+}
+
+.prose-editor code {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.875em;
+  background: #eef2f6;
+  color: #c2410c;
+  border: 1px solid var(--ide-border);
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.35rem;
+}
+
+.prose-editor pre code {
+  background: transparent;
+  color: inherit;
+  border: 0;
+  padding: 0;
+  font-size: inherit;
+}
+
+.prose-editor p.is-editor-empty:first-child::before {
+  color: #94a3b8;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
 
 /* Terminal cursor blink */
 @keyframes ide-cursor-blink {
