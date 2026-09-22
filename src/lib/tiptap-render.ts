@@ -15,10 +15,17 @@ export function renderTipTapToHtml(content: string): string {
   try {
     const json = JSON.parse(content);
     if (!json || typeof json !== "object") return "";
-    return generateHTML(json, editorExtensions);
+    return cleanupRenderedHtml(generateHTML(json, editorExtensions));
   } catch {
     return `<p>${escapeHtml(content)}</p>`;
   }
+}
+
+/** Remove empty headings left over from incomplete Markdown paste. */
+function cleanupRenderedHtml(html: string): string {
+  return html
+    .replace(/<h([1-6])(?:\s[^>]*)?>\s*(?:&nbsp;|\u00a0|\s)*<\/h\1>/gi, "")
+    .replace(/\n{3,}/g, "\n\n");
 }
 
 export function extractPlainText(content: string): string {
