@@ -29,7 +29,7 @@ export const editorExtensions = [
   TextAlign.configure({ types: ["heading", "paragraph"] }),
   CodeBlockLowlight.configure({
     lowlight,
-    defaultLanguage: "php",
+    defaultLanguage: "bash",
   }),
   ...tableExtensions,
 ];

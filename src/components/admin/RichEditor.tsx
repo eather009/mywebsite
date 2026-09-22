@@ -117,7 +117,7 @@ export function RichEditor({ content, onChange, placeholder }: RichEditorProps) 
       Underline,
       Highlight,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
-      CodeBlockLowlight.configure({ lowlight, defaultLanguage: "php" }),
+      CodeBlockLowlight.configure({ lowlight, defaultLanguage: "bash" }),
       CharacterCount,
       ...tableExtensions,
     ],
